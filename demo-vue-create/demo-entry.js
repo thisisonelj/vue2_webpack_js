@@ -1,0 +1,16 @@
+import Vue from 'vue'
+import App from './src/App.vue'
+import router from './router'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import http from './cross-access'
+import XeUtils from 'xe-utils'
+Vue.config.productionTip = false
+Vue.use(ElementUI)
+Vue.use(router)
+Vue.prototype.$http = http
+Vue.prototype.$XeUtils = XeUtils
+/* eslint-disable no-new */
+new Vue({
+  el: '#app', router, render: h => h(App)
+})
