@@ -3,6 +3,17 @@ const webpack = require('webpack')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
 const config = {
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8188',
+        changeOrigin: true, // 是否跨域
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
+  },
   configureWebpack: {
     entry: {
       app: './demo-entry.js'

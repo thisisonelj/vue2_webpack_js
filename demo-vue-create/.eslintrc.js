@@ -3,10 +3,7 @@
  */
 module.exports = {
   root: true,
-  extends: [
-    'plugin:vue/essential',
-    '@vue/standard'
-  ],
+  extends: ['plugin:vue/essential', '@vue/standard'],
   rules: {
     // allow async-await
     'generator-star-spacing': 'off',
@@ -15,7 +12,7 @@ module.exports = {
     'vue/no-parsing-error': [2, { 'x-invalid-end-tag': false }],
     'no-undef': 'off',
     camelcase: 'off',
-    semi: 0
+    'prefer-const': 0
   },
   parserOptions: {
     parser: 'babel-eslint'
