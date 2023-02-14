@@ -3,6 +3,18 @@ const webpack = require('webpack')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
 const config = {
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8188',
+        changeOrigin: true, // 是否跨域
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
+  },
+
   configureWebpack: {
     entry: {
       app: './demo-entry.js'
@@ -28,6 +40,19 @@ const config = {
             name: 'video/[name].[hash:7].[ext]'
           }
         }
+        // {
+        //   test: /\.css$/,
+        //   use: [
+        //     { loader: 'style-loader' },
+        //     {
+        //       loader: 'css-loader',
+        //       options: {
+        //         modules: true
+        //       }
+        //     },
+        //     { loader: 'less-loader' }
+        //   ]
+        // }
       ]
     },
     resolve: {
@@ -37,7 +62,18 @@ const config = {
       extensions: ['.js', '.vue']
     },
     plugins: [
-    ]
+    ],
+    devServer: {
+      proxy: {
+        '/api': {
+          target: 'http://127.0.0.1:8188', // 目标接口域名
+          changeOrigin: true, // 是否跨域
+          pathRewrite: {
+            '^/api': '' // 重写接口
+          }
+        }
+      }
+    }
   },
   css: { extract: false },
 
