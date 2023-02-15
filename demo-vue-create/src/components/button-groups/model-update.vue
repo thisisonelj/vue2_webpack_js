@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dialog
-      :visible.sync="modalStatus"
+      :visible.sync="injustStatus"
       width="420px"
       :show-close="false"
       :close-on-click-modal="false"
@@ -32,13 +32,12 @@
               <el-input v-model="FormData.bankName"></el-input>
             </template>
             <template v-if="demoItem.type === 'select'">
-              <el-select v-model="FormData.bankType" placeholder="请选择">
+              <el-select v-model="FormData.bankType" placeholder="请选择" disabled>
                 <el-option
                   v-for="(item, index) in formAgeOptions"
                   :key="item.code"
                   :value="item.code"
                   :label="item.label"
-                  :disabled="item.disabled"
                 >
                 </el-option>
               </el-select>
@@ -47,7 +46,7 @@
               <el-input
                 v-model="FormData.parentCode"
                 :placeholder="demoItem.content[1]"
-                style="margin-bottom:18px"
+                style="margin-bottom: 18px"
                 disabled
               ></el-input>
 
@@ -56,10 +55,6 @@
                 :placeholder="demoItem.content[0]"
                 disabled
               ></el-input>
-            </template>
-            <template v-if="demoItem.type === 'radio'">
-              <el-radio v-model="FormData.leafCode" :label="true">是</el-radio>
-              <el-radio v-model="FormData.leafCode" :label="false">否</el-radio>
             </template>
           </el-form-item>
         </el-form>
@@ -91,6 +86,16 @@ export default {
       default: function () {
         return {}
       }
+    },
+    updateData: {
+      type: Object,
+      default: function () {
+        return {}
+      }
+    },
+    injustStatus: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -123,7 +128,7 @@ export default {
       }
     }
     return {
-      operationName: '新增银行',
+      operationName: '修改银行',
       FormData: {
         bankId: '',
         bankName: '',
@@ -132,29 +137,16 @@ export default {
         parentName: '',
         leafCode: true
       },
-      defaultformAgeOptions: [
-        { label: '全国银行', code: 'A', disabled: false },
-        { label: '省级银行', code: 'B', disabled: false },
-        { label: '市级银行', code: 'C', disabled: false }
-      ],
       formAgeOptions: [
-        { label: '全国银行', code: 'A', disabled: false },
-        { label: '省级银行', code: 'B', disabled: false },
-        { label: '市级银行', code: 'C', disabled: false }
+        { label: '全国银行', code: 'A' },
+        { label: '省级银行', code: 'B' },
+        { label: '市级银行', code: 'C' }
       ],
       FormRules: {
-        bankName: [
-          { validator: checkBankName, trigger: 'blur' }
-        ],
-        bankType: [
-          { validator: checkBankType, trigger: 'blur' }
-        ],
-        parentCode: [
-          { validator: checkParentCode, trigger: 'blur' }
-        ],
-        parentName: [
-          { validator: checkParentName, trigger: 'blur' }
-        ]
+        bankName: [{ validator: checkBankName, trigger: 'blur' }],
+        bankType: [{ validator: checkBankType, trigger: 'blur' }],
+        parentCode: [{ validator: checkParentCode, trigger: 'blur' }],
+        parentName: [{ validator: checkParentName, trigger: 'blur' }]
       }
     }
   },
@@ -162,25 +154,28 @@ export default {
     handleOperation () {
       this.$refs.ruleForm.validate(async (valid) => {
         if (valid) {
-          let res = await bankApi.add(this.FormData).catch((error) => {
+          let res = await bankApi.update(this.FormData).catch((error) => {
             console.log(error)
           })
           if (res.status === 200) {
             this.$Message.success({
               background: true,
-              content: '成功添加一条数据'
+              content: '成功修改一条数据'
             })
-            this.$emit('confirm-insert', { modalStatus: false, showTreeData: true })
+            this.$emit('confirm-update', {
+              modalStatus: false,
+              showTreeData: true
+            })
           } else {
-            this.$emit('confirm-insert', { modalStatus: true })
+            this.$emit('confirm-update', { modalStatus: true })
           }
         } else {
-          this.$emit('confirm-insert', { modalStatus: true })
+          this.$emit('confirm-update', { modalStatus: true })
         }
       })
     },
     cancelOperation () {
-      this.$emit('cancel-insert', { modalStatus: false })
+      this.$emit('cancel-update', { modalStatus: false })
     },
     setBlankOperation () {
       this.FormData = {
@@ -199,31 +194,20 @@ export default {
   },
   computed: {},
   watch: {
-    modalStatus: {
+    injustStatus: {
       handler: function (val) {
-        if (this.selectedNodes && Object.keys(this.selectedNodes).length !== 0) {
-          this.FormData.parentCode = this.selectedNodes.bankId
-          this.FormData.parentName = this.selectedNodes.bankName
-          this.formAgeOptions = this.defaultformAgeOptions
-          let optionIndex = 0
-          this.formAgeOptions.forEach((element, index) => {
-            if (element.code === this.selectedNodes.bankType) {
-              element.disabled = true
-              optionIndex = index
-            } else {
-              element.disabled = false
-            }
-          })
-          if (this.formAgeOptions[optionIndex]) {
-            for (let i = 0; i < optionIndex; i++) {
-              this.formAgeOptions[i].disabled = true
-            }
-          }
+        if (val) {
+          // if (
+          //   this.selectedNodes &&
+          //   Object.keys(this.selectedNodes).length !== 0
+          // ) {
+          //   this.FormData.parentCode = this.selectedNodes.bankId
+          //   this.FormData.parentName = this.selectedNodes.bankName
+          // }
+          this.FormData = Object.assign({}, this.updateData)
         }
       }
-
     }
-
   },
   beforeDestroy () {}
 }
