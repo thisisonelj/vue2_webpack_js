@@ -15,6 +15,7 @@
       node-key="id"
       :filter-node-method="filterNode"
       :default-checked-keys="['root']"
+      @node-contextmenu="displayBankUpdate"
     ></el-tree>
   </div>
 </template>
@@ -40,6 +41,9 @@ export default {
     }
   },
   methods: {
+    displayBankUpdate (event, data, node, currentNode) {
+      this.$emit('bank-update', node)
+    },
     filterNode (value, data) {
       if (!value) return true
       return data.bankName.indexOf(value) !== -1

@@ -15,4 +15,7 @@ bankApi.selectPagation = (data) => {
 bankApi.selectById = (data) => {
   return http.post('/rest/demo/bank/query-id', data)
 }
+bankApi.update = (data) => {
+  return http.post('/rest/demo/bank/update', data)
+}
 export default bankApi

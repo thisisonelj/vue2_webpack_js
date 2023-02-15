@@ -5,6 +5,7 @@
       :selected-nodes="selectedNodes"
       @refresh-insert="refreshInsert"
       @refresh-delete="refreshDelete"
+      :update-status="updateNodes"
     ></button-group>
     <div class="demo-split">
       <Split v-model="split1">
@@ -15,6 +16,7 @@
             :tree-data="treeData"
             @input-tree="inputTree"
             :ref="'bankTree'"
+            @bank-update="bankUpdate"
           ></sider-tree>
         </div>
         <div slot="right" class="demo-right-pane">
@@ -69,10 +71,14 @@ export default {
         demoTotal: 0
       },
       tableData: [],
-      selectCondition: {}
+      selectCondition: {},
+      updateNodes: {}
     }
   },
   methods: {
+    bankUpdate (data) {
+      this.updateNodes = data.data
+    },
     defaultPageParams (data) {
       this.pagationData.currentPage = 1
       this.pagationData.pageSize = 5

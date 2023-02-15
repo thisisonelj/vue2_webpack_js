@@ -7,11 +7,6 @@
         </div></el-breadcrumb-item
       >
       <el-breadcrumb-item
-        ><div class="crumb-select" @click="selectInfo">
-          查询
-        </div></el-breadcrumb-item
-      >
-      <el-breadcrumb-item
         ><div class="crumb-delete" @click="deleteInfo">
           删除
         </div></el-breadcrumb-item
@@ -24,11 +19,13 @@
       <i class="el-icon-caret-top"></i><span>展开状态</span>
     </div>
     <modal-insert :demo-form="modalForm" :modal-status="modalStatus" @cancel-insert="modalStatus=$event.modalStatus" @confirm-insert="confirmInsert" :selected-nodes="selectedNodes"></modal-insert>
+    <modal-update :demo-form="modalUpdateForm" :injust-status="injustStatus" @cancel-update="injustStatus=$event.modalStatus" @confirm-update="confirmUpdate" :selected-nodes="selectedNodes" :update-data="updateStatus"></modal-update>
   </div>
 </template>
 <script>
 import bankApi from '@/utils/bank_info'
 import modalInsert from './modal-top'
+import modalUpdate from './model-update.vue'
 export default {
   props: {
     selectedNodes: {
@@ -36,10 +33,12 @@ export default {
       default: function () {
         return {}
       }
-    }
+    },
+    updateStatus: {}
   },
   components: {
-    modalInsert: modalInsert
+    modalInsert: modalInsert,
+    modalUpdate: modalUpdate
   },
   data () {
     return {
@@ -67,8 +66,27 @@ export default {
         prop: 'leafCode',
         label: '是否为末级银行'
       }],
+      modalUpdateForm: [{
+        type: 'input',
+        prop: 'bankName',
+        label: '银行名称'
+      },
+      {
+        type: 'select',
+        prop: 'bankType',
+        label: '银行类型'
+      },
+      {
+        type: 'pretype',
+        prop: 'parentCode',
+        label: '上级银行',
+        content: ['名称', '代码']
+      }
+      ],
       modalStatus: false,
-      refresh: false
+      refresh: false,
+      injustStatus: false,
+      updateData: {}
     }
   },
   methods: {
@@ -110,12 +128,30 @@ export default {
         this.refresh = data.showTreeData
         this.$emit('refresh-insert', this.refresh)
       }
+    },
+    confirmUpdate (data) {
+      this.injustStatus = data.modalStatus
+      if (data.showTreeData) {
+        this.refresh = data.showTreeData
+        this.$emit('refresh-insert', this.refresh)
+      }
     }
   },
   created () {},
-  mounted () {},
-  computed: {},
-  watch: {},
+  mounted () {
+
+  },
+  computed: {
+
+  },
+  watch: {
+    updateStatus: {
+      handler: function (val) {
+        this.injustStatus = true
+      },
+      deep: true
+    }
+  },
   beforeDestroy () {}
 }
 </script>
