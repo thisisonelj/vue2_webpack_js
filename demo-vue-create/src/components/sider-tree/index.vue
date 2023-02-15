@@ -12,8 +12,9 @@
       :highlight-current="true"
       default-expand-all
       :ref="'bank_tree'"
-      node-key="bankId"
+      node-key="id"
       :filter-node-method="filterNode"
+      :default-checked-keys="['root']"
     ></el-tree>
   </div>
 </template>
@@ -34,7 +35,8 @@ export default {
       defaultProps: {
         children: 'children',
         label: 'bankName'
-      }
+      },
+      bankId: 'bankId'
     }
   },
   methods: {
@@ -46,14 +48,19 @@ export default {
       this.selectedTreeNode()
     },
     selectedTreeNode () {
-      let selectedNodes = this.$refs.bank_tree.getCurrentNode()
       this.$nextTick(() => {
+        let selectedNodes = this.$refs.bank_tree.getCurrentNode()
         this.$emit('tree-selected', selectedNodes)
+      })
+    },
+    setdefaultSelected (data) {
+      this.$nextTick(() => {
+        this.$refs.bank_tree.setCurrentKey(data, true)
       })
     }
   },
   mounted () {
-    this.selectedTreeNode()
+    // this.selectedTreeNode()
   },
   created () {
 
@@ -63,7 +70,14 @@ export default {
       handler: function (val) {
         this.$refs.bank_tree.filter(val)
       }
+    },
+    treeData: {
+      handler: function (val) {
+        this.setdefaultSelected(val[0].id)
+        this.selectedTreeNode()
+      }
     }
+
   }
 }
 </script>

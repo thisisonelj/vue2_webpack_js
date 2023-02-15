@@ -47,6 +47,7 @@ const commonMethods = {
   traveTree: function traverseTree (data) {
     data.forEach(element => {
       element.leafCode = true
+      element.id = element.bankId
       if (element.children.length !== 0) {
         element.leafCode = false
         traverseTree(element.children)
