@@ -9,4 +9,10 @@ bankApi.query_all = (data) => {
 bankApi.delete = (data) => {
   return http.post('/rest/demo/bank/delete', data)
 }
+bankApi.selectPagation = (data) => {
+  return http.post('/rest/demo/bank/pagation', data)
+}
+bankApi.selectById = (data) => {
+  return http.post('/rest/demo/bank/query-id', data)
+}
 export default bankApi
