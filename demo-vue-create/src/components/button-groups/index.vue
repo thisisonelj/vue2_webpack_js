@@ -29,6 +29,7 @@
   </div>
 </template>
 <script>
+
 import bankApi from '@/utils/bank_info'
 import modalInsert from './modal-top'
 import modalUpdate from './model-update.vue'
@@ -164,6 +165,7 @@ export default {
     },
     confirmSelect (data) {
       this.selectStatus = data.modalStatus
+      this.$emit('refresh-select', data)
     }
   },
   created () {},

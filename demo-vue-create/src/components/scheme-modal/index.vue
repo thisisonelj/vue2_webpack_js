@@ -156,9 +156,7 @@ export default {
         { label: '市级银行', code: 'C' }
       ],
       FormRules: {
-        bankName: [{ validator: checkBankName, trigger: 'blur' }],
-        bankType: [{ validator: checkBankType, trigger: 'blur' }],
-        createTime: [{ validator: checkBankTime, trigger: 'blur' }]
+        bankType: [{ validator: checkBankType, trigger: 'blur' }]
       },
       treeData: [],
       selectedNode: {},
@@ -170,23 +168,16 @@ export default {
     handleOperation () {
       this.$refs.ruleForm.validate(async (valid) => {
         if (valid) {
-          let res = await bankApi.add(this.FormData).catch((error) => {
+          let res = await bankSchemeInfo.selectByScheme(this.FormData).catch((error) => {
             console.log(error)
           })
           if (res.status === 200) {
-            this.$Message.success({
-              background: true,
-              content: '成功添加一条数据'
-            })
-            this.$emit('confirm-insert', {
-              modalStatus: false,
-              showTreeData: true
-            })
+            this.$emit('confirm-select', res.data)
           } else {
-            this.$emit('confirm-insert', { modalStatus: true })
+            this.$emit('confirm-select', { modalStatus: true })
           }
         } else {
-          this.$emit('confirm-insert', { modalStatus: true })
+          this.$emit('confirm-select', { modalStatus: true })
         }
       })
     },
@@ -250,6 +241,8 @@ export default {
           if (res.status === 200) {
             this.querySchemeTree()
             this.insertNodeId = res.data
+            let selectedScheme = { schemeId: res.data }
+            this.treeSelected(selectedScheme)
             this.$Message.success({
               background: true,
               content: '成功添加一条方案'
@@ -286,6 +279,8 @@ export default {
           if (res.status === 200) {
             this.querySchemeTree()
             this.insertNodeId = res.data
+            let selectedScheme = { schemeId: res.data }
+            this.treeSelected(selectedScheme)
             this.$Message.success({
               background: true,
               content: '成功修改一条方案'

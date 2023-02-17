@@ -16,4 +16,7 @@ bankSchemeApi.updateBySchemeId = (data) => {
 bankSchemeApi.deleteBySchemeId = (data) => {
   return http.post('/rest/demo/bankscheme/deletebyschemeid', data)
 }
+bankSchemeApi.selectByScheme = (data) => {
+  return http.post('/rest/demo/bankscheme/selectbyscheme', data)
+}
 export default bankSchemeApi
