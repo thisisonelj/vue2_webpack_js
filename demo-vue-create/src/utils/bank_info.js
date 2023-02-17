@@ -1,3 +1,4 @@
+/** 有关银行信息相关api */
 import http from './cross-access'
 const bankApi = {}
 bankApi.add = (data) => {

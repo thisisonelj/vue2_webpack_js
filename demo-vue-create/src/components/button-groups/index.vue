@@ -7,6 +7,11 @@
         </div></el-breadcrumb-item
       >
       <el-breadcrumb-item
+        ><div class="crumb-select" @click="selectInfo">
+          查询
+        </div></el-breadcrumb-item
+      >
+      <el-breadcrumb-item
         ><div class="crumb-delete" @click="deleteInfo">
           删除
         </div></el-breadcrumb-item
@@ -20,12 +25,14 @@
     </div>
     <modal-insert :demo-form="modalForm" :modal-status="modalStatus" @cancel-insert="modalStatus=$event.modalStatus" @confirm-insert="confirmInsert" :selected-nodes="selectedNodes"></modal-insert>
     <modal-update :demo-form="modalUpdateForm" :injust-status="injustStatus" @cancel-update="injustStatus=$event.modalStatus" @confirm-update="confirmUpdate" :selected-nodes="selectedNodes" :update-data="updateStatus"></modal-update>
+    <modal-select :demo-form="modalSelectForm" :select-status="selectStatus" @cancel-select="selectStatus=$event.modalStatus" @confirm-select="confirmSelect"></modal-select>
   </div>
 </template>
 <script>
 import bankApi from '@/utils/bank_info'
 import modalInsert from './modal-top'
 import modalUpdate from './model-update.vue'
+import modalSelect from '@/components/scheme-modal'
 export default {
   props: {
     selectedNodes: {
@@ -38,7 +45,8 @@ export default {
   },
   components: {
     modalInsert: modalInsert,
-    modalUpdate: modalUpdate
+    modalUpdate: modalUpdate,
+    modalSelect: modalSelect
   },
   data () {
     return {
@@ -83,10 +91,26 @@ export default {
         content: ['名称', '代码']
       }
       ],
+      modalSelectForm: [{
+        type: 'input',
+        prop: 'bankName',
+        label: '银行名称'
+      },
+      {
+        type: 'select',
+        prop: 'bankType',
+        label: '银行类型'
+      },
+      {
+        type: 'date',
+        prop: 'createTime',
+        label: '创建日期'
+      }],
       modalStatus: false,
       refresh: false,
       injustStatus: false,
-      updateData: {}
+      updateData: {},
+      selectStatus: false
     }
   },
   methods: {
@@ -110,7 +134,9 @@ export default {
     /*
     查询按钮事件
     */
-    selectInfo () { },
+    selectInfo () {
+      this.selectStatus = true
+    },
     deleteInfo () {
       if (this.modifySelectedTree()) {
         this.$emit('refresh-delete', { showTreeData: true })
@@ -135,6 +161,9 @@ export default {
         this.refresh = data.showTreeData
         this.$emit('refresh-insert', this.refresh)
       }
+    },
+    confirmSelect (data) {
+      this.selectStatus = data.modalStatus
     }
   },
   created () {},
