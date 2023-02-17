@@ -14,6 +14,7 @@ Vue.use(router)
 Vue.use(ViewUI, { locale })
 Vue.prototype.$http = http
 Vue.prototype.$XeUtils = XeUtils
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app', router, render: h => h(App)
