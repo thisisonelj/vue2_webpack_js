@@ -6,6 +6,7 @@
       @refresh-insert="refreshInsert"
       @refresh-delete="refreshDelete"
       :update-status="updateNodes"
+      @refresh-select="refreshSelect"
     ></button-group>
     <div class="demo-split">
       <Split v-model="split1">
@@ -40,6 +41,7 @@
 </template>
 
 <script>
+
 import buttonGroups from '@/components/button-groups'
 import siderTree from '@/components/sider-tree'
 import bankApi from '@/utils/bank_info'
@@ -175,6 +177,15 @@ export default {
     },
     inputTree (data) {
       this.treeData = data
+    },
+    refreshSelect (data) {
+      let ROOT = [{ bankId: 'root', bankName: '全国银行', leafCode: 0, children: [] }]
+      let bankTree = validMethods.arrayToTreeNoRoot(data)
+      bankTree.forEach(element => {
+        ROOT[0].children.push(element)
+      })
+      this.treeData = ROOT
+      validMethods.traveTree(this.treeData)
     }
   },
   created () {

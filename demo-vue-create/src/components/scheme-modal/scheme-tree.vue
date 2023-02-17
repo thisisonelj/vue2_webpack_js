@@ -22,7 +22,7 @@
         >
           <span>{{ node.label }}</span>
           <span :class="[isdisPlay(data) ? buttonGroup : displayDeney]">
-            <el-button type="text" @click.native.stop="schemeUpdate(node, data)"
+            <el-button type="text" @click.native.stop="schemeUpdate(node, data)" v-if="data.schemeId !== 'root'"
               ><i class="el-icon-circle-check"></i
             ></el-button>
             <el-button type="text" @click.native.stop="schemeInsert(node, data)"
