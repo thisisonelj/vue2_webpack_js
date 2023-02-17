@@ -28,6 +28,8 @@
     "iview": "^3.5.4",
     "less": "^3.13.1",
     "less-loader": "^11.1.0",
+    "sortable.js": "^0.3.0",
+    "sortablejs": "^1.15.0",
     "style-loader": "^3.3.1",
     "view-design": "^4.7.0",
     "vue": "^2.5.2",

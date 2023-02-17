@@ -49,6 +49,21 @@ export default {
   },
   data () {
     return {}
+  },
+  methods: {
+    rowDrop () {
+      let tbody = document.querySelector('.el-table__body-wrapper tbody')
+      let _this = this
+      this.$Sortable.create(tbody, {
+        onEnd ({ newIndex, oldIndex }) {
+          const currRow = _this.tableData.splice(oldIndex, 1)[0]
+          _this.tableData.splice(newIndex, 0, currRow)
+        }
+      })
+    }
+  },
+  mounted () {
+    this.rowDrop()
   }
 }
 </script>
