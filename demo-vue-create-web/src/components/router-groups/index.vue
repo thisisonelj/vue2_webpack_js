@@ -11,7 +11,7 @@
       </Split>
     </div>
     <Card class="vuex-card">
-      <InputNumber :max="10" :min="1" v-model="validValue" style="width:100%"></InputNumber>
+      <InputNumber  v-model="validValue" style="width:100%"></InputNumber>
     </Card>
   </div>
 </template>
@@ -27,9 +27,16 @@ export default {
   data () {
     return {
       msg: '这是vuex主页面',
-      splitIndex: 0.5,
-      validValue: 1
+      splitIndex: 0.5
     }
+  },
+  computed: {
+    validValue: function () {
+      return this.$store.state.count
+    }
+  },
+  created () {
+
   }
 }
 </script>

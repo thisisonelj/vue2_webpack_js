@@ -19,7 +19,11 @@ export default {
   },
   methods: {
     change () {
-
+      if (this.switchStatus) {
+        this.$store.commit('changeSex', { sex: 'girl' })
+      } else {
+        this.$store.commit('changeSex', { sex: 'boy' })
+      }
     }
   }
 }

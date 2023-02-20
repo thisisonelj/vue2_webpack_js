@@ -11,6 +11,13 @@ export default {
       msg: '孙子页面',
       value: 1
     }
+  },
+  watch: {
+    value: {
+      handler: function (val) {
+        this.$store.commit('increment', { amount: val })
+      }
+    }
   }
 }
 </script>

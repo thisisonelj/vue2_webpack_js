@@ -9,15 +9,16 @@ import ViewUI from 'view-design'
 import locale from 'view-design/dist/locale/en-US'
 import 'view-design/dist/styles/iview.css'
 import Sortable from 'sortablejs'
-
+import vuex from './vuex/vuex'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(router)
 Vue.use(ViewUI, { locale })
+Vue.use(vuex)
 Vue.prototype.$http = http
 Vue.prototype.$XeUtils = XeUtils
 Vue.prototype.$Sortable = Sortable
 /* eslint-disable no-new */
 new Vue({
-  el: '#app', router, render: h => h(App)
+  el: '#app', router, store: vuex, render: h => h(App)
 })

@@ -10,12 +10,16 @@ export default {
   name: 'parentBrother',
   data () {
     return {
-      msg: '父亲兄弟页面',
-      value: ''
+      msg: '父亲兄弟页面'
     }
   },
   components: {
     vuexBrotherSon: brotherSon
+  },
+  computed: {
+    value () {
+      return this.$store.state.selectedValue[0]
+    }
   }
 }
 </script>
