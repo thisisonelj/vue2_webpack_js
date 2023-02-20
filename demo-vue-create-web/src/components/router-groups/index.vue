@@ -10,6 +10,9 @@
         </div>
       </Split>
     </div>
+    <Card class="vuex-card">
+      <InputNumber :max="10" :min="1" v-model="validValue" style="width:100%"></InputNumber>
+    </Card>
   </div>
 </template>
 <script>
@@ -24,7 +27,8 @@ export default {
   data () {
     return {
       msg: '这是vuex主页面',
-      splitIndex: 0.5
+      splitIndex: 0.5,
+      validValue: 1
     }
   }
 }
@@ -32,11 +36,16 @@ export default {
 <style lang="less" scoped>
 @border-attr:1px solid blue;
 .layout-base {
-  height: 100%;
+  height: 50%;
   padding: 10px;
 }
 .layout-base-child {
   height: 100%;
+}
+#middle-layout{
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }
 .vuex-main {
   height: 100%;
@@ -44,12 +53,17 @@ export default {
     .layout-base();
     .vuex-left-split {
       .layout-base-child();
-
+      #middle-layout();
     }
     .vuex-right-split {
       .layout-base-child();
-      padding-left:20px;
+      //padding-left: 20px;
+      #middle-layout();
     }
+  }
+  .vuex-card{
+    .layout-base();
+    #middle-layout();
   }
 }
 </style>

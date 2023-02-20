@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Input v-model="value" placeholder="Enter something..."  style="width:50%"/>
+    <Input v-model="value" placeholder="Enter something..."  style="width:100%"/>
     <vuex-brother-son class="form-space"></vuex-brother-son>
   </div>
 </template>

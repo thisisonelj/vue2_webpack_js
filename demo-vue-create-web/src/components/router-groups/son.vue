@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Select v-model="selectValue" style="width:50%">
+    <Select v-model="selectValue" style="width:100%">
         <Option v-for="item in list" :value="item.value" :key="item.value">{{ item.label }}</Option>
     </Select>
     <vuex-grand-son class="form-space"></vuex-grand-son>
