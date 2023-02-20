@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
-import router from './router'
+// import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import http from './cross-access'
 import XeUtils from 'xe-utils'
-// import router from './router/router-demo.js'
+import router from './router/router-demo.js'
 Vue.config.productionTip = false
 const debugmode = process.env.NODE_ENV !== 'production' // 是否为开发环境
 Vue.config.debug = debugmode
