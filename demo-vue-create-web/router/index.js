@@ -22,29 +22,9 @@ export default new Router({
       component: vuexDemo.Index
     },
     {
-      path: '/vuex/parent',
-      name: 'parent',
-      component: vuexDemo.Parent
-    },
-    {
-      path: '/vuex/parent/son',
-      name: 'son',
-      component: vuexDemo.Son
-    },
-    {
-      path: '/vuex/brother',
-      name: 'brother',
-      component: vuexDemo.parentBrother
-    },
-    {
-      path: '/vuex/brother/son',
-      name: 'brotherson',
-      component: vuexDemo.brotherSon
-    },
-    {
-      path: '/vuex/grand/son',
-      name: 'grandson',
-      component: vuexDemo.grandSon
+      path: '/vuex/module',
+      name: 'module',
+      component: vuexDemo.module
     }
   ]
 })

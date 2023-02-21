@@ -4,12 +4,13 @@ import Son from '@/components/router-groups/son'
 import grandSon from '@/components/router-groups/grand-son'
 import parentBrother from '@/components/router-groups/parent-brother'
 import brotherSon from '@/components/router-groups/brother-son'
-
+import module from '../vuex/vuex-module.vue'
 export default {
   Index: Index,
   Parent: Parent,
   Son: Son,
   grandSon: grandSon,
   parentBrother: parentBrother,
-  brotherSon: brotherSon
+  brotherSon: brotherSon,
+  module: module
 }

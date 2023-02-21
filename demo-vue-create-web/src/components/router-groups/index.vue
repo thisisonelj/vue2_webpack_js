@@ -30,6 +30,7 @@
         </List>
       </div>
     </Card>
+    <router-view></router-view>
   </div>
 </template>
 <script>
