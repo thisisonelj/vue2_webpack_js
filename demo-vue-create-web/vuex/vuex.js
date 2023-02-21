@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import vuexApi from './vuex-api'
 Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
@@ -12,7 +13,8 @@ const store = new Vuex.Store({
       { value: 'normal', label: '中' },
       { value: 'small', label: '小' }
     ],
-    selectedValue: ['']
+    selectedValue: [''],
+    displayList: []
   },
   mutations: {
     increment (state, data) {
@@ -31,6 +33,22 @@ const store = new Vuex.Store({
         state.selectedValue.push(state.list.filter((e) => {
           return e.value === data.value
         })[0].label)
+      }
+    },
+    changeListActions (state, data) {
+      state.displayList = []
+      if (data) {
+        state.displayList = data
+      }
+    }
+  },
+  actions: {
+    async changedisPlayList ({ commit }, val) {
+      let res = await vuexApi.query(val).catch((error) => {
+        console.log(error)
+      })
+      if (res.status === 200) {
+        commit('changeListActions', res.data)
       }
     }
   }

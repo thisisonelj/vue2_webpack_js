@@ -11,13 +11,31 @@
       </Split>
     </div>
     <Card class="vuex-card">
-      <InputNumber  v-model="validValue" style="width:100%"></InputNumber>
+      <div class="vuex-card-flex">
+        <InputNumber
+          v-model="validValue"
+          style="width: 20%"
+          @on-change="change"
+        ></InputNumber>
+        <List
+          header="Header"
+          footer="Footer"
+          border
+          size="large"
+          style="width: 30%"
+        >
+          <ListItem v-for="item in displayList" :key="item.index">
+            {{ item.name }} : {{ item.age }}
+          </ListItem>
+        </List>
+      </div>
     </Card>
   </div>
 </template>
 <script>
 import Parent from './parent.vue'
 import parentBrother from './parent-brother.vue'
+
 export default {
   name: 'index',
   components: {
@@ -27,16 +45,20 @@ export default {
   data () {
     return {
       msg: '这是vuex主页面',
-      splitIndex: 0.5
+      splitIndex: 0.5,
+      validValue: 0
     }
   },
   computed: {
-    validValue: function () {
-      return this.$store.state.count
+    displayList: function () {
+      return this.$store.state.displayList
     }
   },
-  created () {
-
+  created () {},
+  methods: {
+    async change (val) {
+      this.$store.dispatch('changedisPlayList', { size: val })
+    }
   }
 }
 </script>
@@ -49,10 +71,14 @@ export default {
 .layout-base-child {
   height: 100%;
 }
-#middle-layout{
-   display: flex;
-   justify-content: center;
-   align-items: center;
+#middle-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#left-layout {
+  display: flex;
+  justify-content: space-around;
 }
 .vuex-main {
   height: 100%;
@@ -68,9 +94,11 @@ export default {
       #middle-layout();
     }
   }
-  .vuex-card{
+  .vuex-card {
     .layout-base();
-    #middle-layout();
+    .vuex-card-flex {
+      #left-layout();
+    }
   }
 }
 </style>
