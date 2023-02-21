@@ -5,6 +5,7 @@ import grandSon from '@/components/router-groups/grand-son'
 import parentBrother from '@/components/router-groups/parent-brother'
 import brotherSon from '@/components/router-groups/brother-son'
 import module from '../vuex/vuex-module.vue'
+import eventBus from '@/components/event-bus'
 export default {
   Index: Index,
   Parent: Parent,
@@ -12,5 +13,6 @@ export default {
   grandSon: grandSon,
   parentBrother: parentBrother,
   brotherSon: brotherSon,
-  module: module
+  module: module,
+  eventBus: eventBus
 }

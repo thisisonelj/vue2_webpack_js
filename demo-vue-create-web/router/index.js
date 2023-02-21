@@ -25,6 +25,11 @@ export default new Router({
       path: '/vuex/module',
       name: 'module',
       component: vuexDemo.module
+    },
+    {
+      path: '/eventbus',
+      name: 'eventBus',
+      component: vuexDemo.eventBus
     }
   ]
 })

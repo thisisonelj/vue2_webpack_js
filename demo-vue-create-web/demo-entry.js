@@ -11,12 +11,20 @@ import 'view-design/dist/styles/iview.css'
 import Sortable from 'sortablejs'
 import vuex from './vuex/vuex'
 import vuexModule from './vuex/vuex-module'
+// let eventBus = {
+//   install (Vue, options) {
+//     Vue.prototype.$bus = new Vue()
+//   }
+// }
+let bus = new Vue()
+Vue.prototype.$bus = bus
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(router)
 Vue.use(ViewUI, { locale })
 Vue.use(vuex)
 Vue.use(vuexModule)
+Vue.use(bus)
 Vue.prototype.$http = http
 Vue.prototype.$XeUtils = XeUtils
 Vue.prototype.$Sortable = Sortable
