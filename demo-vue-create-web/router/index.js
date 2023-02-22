@@ -30,6 +30,11 @@ export default new Router({
       path: '/eventbus',
       name: 'eventBus',
       component: vuexDemo.eventBus
+    },
+    {
+      path: '/alive',
+      name: 'aliveModule',
+      component: vuexDemo.aliveModule
     }
   ]
 })

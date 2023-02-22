@@ -62,23 +62,17 @@ const config = {
       extensions: ['.js', '.vue']
     },
     plugins: [
-    ],
-    devServer: {
-      proxy: {
-        '/api': {
-          target: 'http://127.0.0.1:8188', // 目标接口域名
-          changeOrigin: true, // 是否跨域
-          pathRewrite: {
-            '^/api': '' // 重写接口
-          }
-        }
-      }
-    }
+    ]
   },
   css: { extract: false },
 
   lintOnSave: false,
-  productionSourceMap: false
+  productionSourceMap: false,
+  publicPath: '/dist/',
+  outputDir: '/dist/',
+  assetsDir: '',
+  indexPath: 'index.html'
+
 }
 
 module.exports = config

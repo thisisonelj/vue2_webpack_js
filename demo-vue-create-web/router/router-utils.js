@@ -6,6 +6,7 @@ import parentBrother from '@/components/router-groups/parent-brother'
 import brotherSon from '@/components/router-groups/brother-son'
 import module from '../vuex/vuex-module.vue'
 import eventBus from '@/components/event-bus'
+import aliveModule from '@/components/keep-alive'
 export default {
   Index: Index,
   Parent: Parent,
@@ -14,5 +15,6 @@ export default {
   parentBrother: parentBrother,
   brotherSon: brotherSon,
   module: module,
-  eventBus: eventBus
+  eventBus: eventBus,
+  aliveModule: aliveModule
 }
