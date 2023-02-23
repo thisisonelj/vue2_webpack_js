@@ -28,9 +28,7 @@ const config = {
       umdNamedDefine: true,
       globalObject: 'this'
     },
-    externals: {
-
-    },
+    externals: {},
     module: {
       rules: [
         {
@@ -40,19 +38,6 @@ const config = {
             name: 'video/[name].[hash:7].[ext]'
           }
         }
-        // {
-        //   test: /\.css$/,
-        //   use: [
-        //     { loader: 'style-loader' },
-        //     {
-        //       loader: 'css-loader',
-        //       options: {
-        //         modules: true
-        //       }
-        //     },
-        //     { loader: 'less-loader' }
-        //   ]
-        // }
       ]
     },
     resolve: {
@@ -62,7 +47,14 @@ const config = {
       extensions: ['.js', '.vue']
     },
     plugins: [
-    ]
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: process.env.NODE_ENV ? JSON.stringify(process.env.NODE_ENV) : JSON.stringify('development'),
+          SIGNUP_PATH: JSON.stringify('signup')
+        }
+      })
+    ],
+    optimization: {}
   },
   css: { extract: false },
 
@@ -72,7 +64,6 @@ const config = {
   outputDir: '/dist/',
   assetsDir: '',
   indexPath: 'index.html'
-
 }
 
 module.exports = config

@@ -8,7 +8,7 @@
     "build:single": "vue-cli-service build --target lib",
     "lint": "vue-cli-service lint",
     "build:dev": "vue-cli-service build --mode dev  --progress --config config/dev.config.js",
-    "build:prod": "vue-cli-service build --mode pro"
+    "build:prod": "vue-cli-service build --mode prod"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -22,12 +22,14 @@
     "babel-plugin-component": "^1.1.1",
     "compression-webpack-plugin": "^10.0.0",
     "core-js": "^3.27.2",
+    "css-loader": "^6.7.3",
     "element-ui": "^2.15.9",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^7.0.0",
     "iview": "^3.5.4",
     "less": "^3.13.1",
     "less-loader": "^11.1.0",
+    "mini-css-extract-plugin": "^2.7.2",
     "sortable.js": "^0.3.0",
     "sortablejs": "^1.15.0",
     "style-loader": "^3.3.1",

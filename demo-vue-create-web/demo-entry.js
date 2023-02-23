@@ -11,6 +11,7 @@ import 'view-design/dist/styles/iview.css'
 import Sortable from 'sortablejs'
 import vuex from './vuex/vuex'
 import vuexModule from './vuex/vuex-module'
+import envAttr from '@/utils/env-visit'
 // let eventBus = {
 //   install (Vue, options) {
 //     Vue.prototype.$bus = new Vue()
