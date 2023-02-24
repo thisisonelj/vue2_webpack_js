@@ -12,6 +12,7 @@ import Sortable from 'sortablejs'
 import vuex from './vuex/vuex'
 import vuexModule from './vuex/vuex-module'
 import envAttr from '@/utils/env-visit'
+import * as echarts from 'echarts'
 // let eventBus = {
 //   install (Vue, options) {
 //     Vue.prototype.$bus = new Vue()
@@ -29,6 +30,7 @@ Vue.use(bus)
 Vue.prototype.$http = http
 Vue.prototype.$XeUtils = XeUtils
 Vue.prototype.$Sortable = Sortable
+Vue.prototype.$echarts = echarts
 /* eslint-disable no-new */
 new Vue({
   el: '#app', router, store: vuexModule, render: h => h(App)

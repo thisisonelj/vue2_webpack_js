@@ -23,6 +23,7 @@
     "compression-webpack-plugin": "^10.0.0",
     "core-js": "^3.27.2",
     "css-loader": "^6.7.3",
+    "echarts": "^5.4.1",
     "element-ui": "^2.15.9",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^7.0.0",

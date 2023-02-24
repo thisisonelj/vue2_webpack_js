@@ -35,6 +35,11 @@ export default new Router({
       path: '/alive',
       name: 'aliveModule',
       component: vuexDemo.aliveModule
+    },
+    {
+      path: '/echarts',
+      name: 'echartsTable',
+      component: vuexDemo.echartsTable
     }
   ]
 })

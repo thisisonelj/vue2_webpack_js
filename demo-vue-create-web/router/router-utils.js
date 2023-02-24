@@ -7,6 +7,7 @@ import brotherSon from '@/components/router-groups/brother-son'
 import module from '../vuex/vuex-module.vue'
 import eventBus from '@/components/event-bus'
 import aliveModule from '@/components/keep-alive'
+import echartsTable from '@/components/echarts-table'
 export default {
   Index: Index,
   Parent: Parent,
@@ -16,5 +17,6 @@ export default {
   brotherSon: brotherSon,
   module: module,
   eventBus: eventBus,
-  aliveModule: aliveModule
+  aliveModule: aliveModule,
+  echartsTable: echartsTable
 }
