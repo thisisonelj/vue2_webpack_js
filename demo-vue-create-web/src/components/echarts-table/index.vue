@@ -47,7 +47,7 @@ export default {
     },
     initEcharts () {
       // 基于准备好的dom，初始化echarts实例
-      let myChart = this.$echarts.init(document.getElementById('main'), null, {
+      let myChart = this.$echarts.init(document.getElementById('main'), 'dark', {
         width: 600,
         height: 400
       })
@@ -69,7 +69,53 @@ export default {
           {
             name: '销量',
             type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
+            data: [5, 20, 36, 10, 10, 20],
+            color: [
+              '#dd6b66',
+              '#759aa0',
+              '#e69d87',
+              '#8dc1a9',
+              '#ea7e53',
+              '#eedd78'
+            ],
+            symbolSize: function (data) {
+              return Math.sqrt(data[2]) / 5e2
+            },
+            emphasis: {
+              itemStyle: {
+                // 高亮时点的颜色。
+                color: 'blue'
+              },
+              focus: 'series',
+              label: {
+                show: true,
+                formatter: function (param) {
+                  return param.data[3]
+                },
+                position: 'top'
+              }
+            },
+            itemStyle: {
+              shadowBlur: 10,
+              shadowColor: 'rgba(120, 36, 50, 0.5)',
+              shadowOffsetY: 5,
+              color: {
+                type: 'radial',
+                x: 0.4,
+                y: 0.3,
+                r: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: 'rgb(251, 118, 123)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgb(204, 46, 72)'
+                  }
+                ]
+              }
+            }
           }
         ]
       }
