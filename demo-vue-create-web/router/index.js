@@ -40,6 +40,11 @@ export default new Router({
       path: '/echarts',
       name: 'echartsTable',
       component: vuexDemo.echartsTable
+    },
+    {
+      path: '/websockets',
+      name: 'webSockets',
+      component: vuexDemo.webSockets
     }
   ]
 })
