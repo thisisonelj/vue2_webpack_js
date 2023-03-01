@@ -9,6 +9,7 @@ import eventBus from '@/components/event-bus'
 import aliveModule from '@/components/keep-alive'
 import echartsTable from '@/components/echarts-table'
 import webSockets from '@/components/web-sockets'
+import renderTree from '@/components/render-tree'
 export default {
   Index: Index,
   Parent: Parent,
@@ -20,5 +21,6 @@ export default {
   eventBus: eventBus,
   aliveModule: aliveModule,
   echartsTable: echartsTable,
-  webSockets: webSockets
+  webSockets: webSockets,
+  renderTree: renderTree
 }

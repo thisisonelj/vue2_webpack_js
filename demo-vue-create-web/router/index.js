@@ -45,6 +45,11 @@ export default new Router({
       path: '/websockets',
       name: 'webSockets',
       component: vuexDemo.webSockets
+    },
+    {
+      path: '/render',
+      name: 'renderTree',
+      component: vuexDemo.renderTree
     }
   ]
 })
