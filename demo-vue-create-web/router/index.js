@@ -50,6 +50,11 @@ export default new Router({
       path: '/render',
       name: 'renderTree',
       component: vuexDemo.renderTree
+    },
+    {
+      path: '/css3',
+      name: 'css3Components',
+      component: vuexDemo.css3Components
     }
   ]
 })

@@ -10,6 +10,7 @@ import aliveModule from '@/components/keep-alive'
 import echartsTable from '@/components/echarts-table'
 import webSockets from '@/components/web-sockets'
 import renderTree from '@/components/render-tree'
+import css3Components from '@/components/css3-components'
 export default {
   Index: Index,
   Parent: Parent,
@@ -22,5 +23,6 @@ export default {
   aliveModule: aliveModule,
   echartsTable: echartsTable,
   webSockets: webSockets,
-  renderTree: renderTree
+  renderTree: renderTree,
+  css3Components: css3Components
 }
