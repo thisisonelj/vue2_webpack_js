@@ -11,6 +11,7 @@ import echartsTable from '@/components/echarts-table'
 import webSockets from '@/components/web-sockets'
 import renderTree from '@/components/render-tree'
 import css3Components from '@/components/css3-components'
+import css3Transition from '@/components/css3-components/css3-transition'
 export default {
   Index: Index,
   Parent: Parent,
@@ -24,5 +25,6 @@ export default {
   echartsTable: echartsTable,
   webSockets: webSockets,
   renderTree: renderTree,
-  css3Components: css3Components
+  css3Components: css3Components,
+  css3Transition: css3Transition
 }

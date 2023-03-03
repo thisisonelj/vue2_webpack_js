@@ -55,6 +55,11 @@ export default new Router({
       path: '/css3',
       name: 'css3Components',
       component: vuexDemo.css3Components
+    },
+    {
+      path: '/transition',
+      name: 'css3Transition',
+      component: vuexDemo.css3Transition
     }
   ]
 })
