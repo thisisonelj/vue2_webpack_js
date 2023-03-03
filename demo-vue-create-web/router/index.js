@@ -60,6 +60,11 @@ export default new Router({
       path: '/transition',
       name: 'css3Transition',
       component: vuexDemo.css3Transition
+    },
+    {
+      path: '/animation',
+      name: 'css3Animation',
+      component: vuexDemo.css3Animation
     }
   ]
 })
