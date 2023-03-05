@@ -65,6 +65,11 @@ export default new Router({
       path: '/animation',
       name: 'css3Animation',
       component: vuexDemo.css3Animation
+    },
+    {
+      path: '/flex',
+      name: 'css3Flex',
+      component: vuexDemo.css3Flex
     }
   ]
 })
