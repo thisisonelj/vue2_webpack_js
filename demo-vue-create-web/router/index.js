@@ -80,6 +80,11 @@ export default new Router({
       path: '/flexlastrow',
       name: 'css3FlexLastRow',
       component: vuexDemo.css3FlexLastRow
+    },
+    {
+      path: '/extend',
+      name: 'extendComponent',
+      component: vuexDemo.extendComponent
     }
   ]
 })
