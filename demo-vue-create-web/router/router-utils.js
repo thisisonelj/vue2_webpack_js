@@ -14,6 +14,8 @@ import css3Components from '@/components/css3-components'
 import css3Transition from '@/components/css3-components/css3-transition'
 import css3Animation from '@/components/css3-components/css3-animation'
 import css3Flex from '@/components/css3-components/css3-flex'
+import css3FlexAuto from '@/components/css3-components/css3-flex-auto'
+import css3FlexLastRow from '@/components/css3-components/css3-flex-last-row'
 export default {
   Index: Index,
   Parent: Parent,
@@ -30,5 +32,7 @@ export default {
   css3Components: css3Components,
   css3Transition: css3Transition,
   css3Animation: css3Animation,
-  css3Flex: css3Flex
+  css3Flex: css3Flex,
+  css3FlexAuto: css3FlexAuto,
+  css3FlexLastRow: css3FlexLastRow
 }

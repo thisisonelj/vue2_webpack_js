@@ -70,6 +70,16 @@ export default new Router({
       path: '/flex',
       name: 'css3Flex',
       component: vuexDemo.css3Flex
+    },
+    {
+      path: '/flexauto',
+      name: 'css3FlexAuto',
+      component: vuexDemo.css3FlexAuto
+    },
+    {
+      path: '/flexlastrow',
+      name: 'css3FlexLastRow',
+      component: vuexDemo.css3FlexLastRow
     }
   ]
 })
