@@ -90,6 +90,11 @@ export default new Router({
       path: '/carousel',
       name: 'carouselComponent',
       component: vuexDemo.carouselComponent
+    },
+    {
+      path: '/debounce',
+      name: 'debounceComponent',
+      component: vuexDemo.debounceComponent
     }
   ]
 })
