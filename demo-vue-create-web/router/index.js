@@ -85,6 +85,11 @@ export default new Router({
       path: '/extend',
       name: 'extendComponent',
       component: vuexDemo.extendComponent
+    },
+    {
+      path: '/carousel',
+      name: 'carouselComponent',
+      component: vuexDemo.carouselComponent
     }
   ]
 })
