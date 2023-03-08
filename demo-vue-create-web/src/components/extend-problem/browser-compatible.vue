@@ -13,7 +13,7 @@
             </div>
           </div>
           <div slot="bottom" class="left-right-pane">
-
+            <recursion-component :recursion-list="recursionList"></recursion-component>
           </div>
         </Split>
       </div>
@@ -27,12 +27,23 @@
   </div>
 </template>
 <script>
+import recursionComponent from './recursion.vue'
 export default {
+  components: {
+    recursionComponent: recursionComponent
+  },
   data () {
     return {
       split: 0.5,
-      msg: '这是验证浏览器兼容性的不同对于overflow|这是验证浏览器兼容性的不同对于overflow|这是验证浏览器兼容性的不同对于overflow'
+      msg: '这是验证浏览器兼容性的不同对于overflow|这是验证浏览器兼容性的不同对于overflow|这是验证浏览器兼容性的不同对于overflow',
+      recursionList: [
+        { id: 0, name: 'liu', children: [{ id: 0, name: 'liu3' }] },
+        { id: 1, name: 'liu1' }
+      ]
     }
+  },
+  methods: {
+
   }
 }
 </script>
@@ -87,7 +98,7 @@ export default {
         flex: 0 1 30%;
         border: 2px solid yellow;
         scrollbar-width: thin;
-        scrollbar-color: red green;   //火狐浏览器只支持这种
+        scrollbar-color: red green; //火狐浏览器只支持这种
         .img {
           width: 150%;
           height: 150%;
@@ -95,6 +106,13 @@ export default {
       }
     }
     .left-right-pane {
+      padding: 10px;
+      height: 100%;
+      width: 100%;
+      display: inline-flex;
+      justify-content: center;
+      align-items: flex-start;
+
     }
   }
   .right-pane {
