@@ -95,6 +95,11 @@ export default new Router({
       path: '/debounce',
       name: 'debounceComponent',
       component: vuexDemo.debounceComponent
+    },
+    {
+      path: '/browser',
+      name: 'browserComponent',
+      component: vuexDemo.browserComponent
     }
   ]
 })

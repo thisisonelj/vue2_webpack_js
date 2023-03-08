@@ -19,6 +19,7 @@ import css3FlexLastRow from '@/components/css3-components/css3-flex-last-row'
 import extendComponent from '@/components/extend-problem'
 import carouselComponent from '@/components/extend-problem/carousel'
 import debounceComponent from '@/components/extend-problem/debounce'
+import browserComponent from '@/components/extend-problem/browser-compatible'
 export default {
   Index: Index,
   Parent: Parent,
@@ -40,5 +41,6 @@ export default {
   css3FlexLastRow: css3FlexLastRow,
   extendComponent: extendComponent,
   carouselComponent: carouselComponent,
-  debounceComponent: debounceComponent
+  debounceComponent: debounceComponent,
+  browserComponent: browserComponent
 }
