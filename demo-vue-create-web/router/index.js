@@ -100,6 +100,11 @@ export default new Router({
       path: '/browser',
       name: 'browserComponent',
       component: vuexDemo.browserComponent
+    },
+    {
+      path: '/pulldown',
+      name: 'pullDownRefresh',
+      component: vuexDemo.pullDownRefresh
     }
   ]
 })

@@ -20,6 +20,7 @@ import extendComponent from '@/components/extend-problem'
 import carouselComponent from '@/components/extend-problem/carousel'
 import debounceComponent from '@/components/extend-problem/debounce'
 import browserComponent from '@/components/extend-problem/browser-compatible'
+import pullDownRefresh from '@/components/extend-problem/pull-down-refresh'
 export default {
   Index: Index,
   Parent: Parent,
@@ -42,5 +43,6 @@ export default {
   extendComponent: extendComponent,
   carouselComponent: carouselComponent,
   debounceComponent: debounceComponent,
-  browserComponent: browserComponent
+  browserComponent: browserComponent,
+  pullDownRefresh: pullDownRefresh
 }
