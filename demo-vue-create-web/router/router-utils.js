@@ -21,6 +21,8 @@ import carouselComponent from '@/components/extend-problem/carousel'
 import debounceComponent from '@/components/extend-problem/debounce'
 import browserComponent from '@/components/extend-problem/browser-compatible'
 import pullDownRefresh from '@/components/extend-problem/pull-down-refresh'
+import arthmeticComponent from '@/components/extend-problem/arthmetic'
+import pullDownComponent from '@/components/extend-problem/pull-down'
 export default {
   Index: Index,
   Parent: Parent,
@@ -44,5 +46,7 @@ export default {
   carouselComponent: carouselComponent,
   debounceComponent: debounceComponent,
   browserComponent: browserComponent,
-  pullDownRefresh: pullDownRefresh
+  pullDownRefresh: pullDownRefresh,
+  arthmeticComponent: arthmeticComponent,
+  pullDownComponent: pullDownComponent
 }

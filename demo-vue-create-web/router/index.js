@@ -105,6 +105,16 @@ export default new Router({
       path: '/pulldown',
       name: 'pullDownRefresh',
       component: vuexDemo.pullDownRefresh
+    },
+    {
+      path: '/arthmetic',
+      name: 'arthmeticComponent',
+      component: vuexDemo.arthmeticComponent
+    },
+    {
+      path: '/down',
+      name: 'downComponent',
+      component: vuexDemo.pullDownComponent
     }
   ]
 })
