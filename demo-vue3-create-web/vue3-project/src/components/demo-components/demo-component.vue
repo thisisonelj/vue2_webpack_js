@@ -40,7 +40,18 @@
       </template>
       <template #right>
         <div class="demo-right-pane">
-          <demo-child2 ></demo-child2>
+          <demo-child2></demo-child2>
+          <demo-child4
+            id="demoCard"
+            style="background-color: blueviolet; border: 1px solid black"
+            @click="attrsEvent"
+            v-bind="$attrs"
+          ></demo-child4>
+          <demo-child5>
+            <template v-slot:content="{slotList}">
+              <Input placeholder="Enter something..." style="width: 10%" v-for="item in slotList" :key="item.index" v-model="item.value"/>
+            </template>
+          </demo-child5>
         </div>
       </template>
     </Split>
@@ -48,7 +59,20 @@
 </template>
 <script setup>
 import demoChild2 from './demo-component-groups/demo-child2.vue'
-import { ref, computed, watch, onMounted } from 'vue'
+import demoChild4 from './demo-component-groups/demo-child4.vue'
+import demoChild5 from './demo-component-groups/demo-child5.vue'
+import { ref, computed, watch, onMounted, provide } from 'vue'
+let provideValue=ref('这是provide注入')
+provide('message',{
+  injectValue: provideValue,
+  modifyData: (e) => {
+    let param='注入完成'
+    e.value=`${param}`
+  }
+})
+let attrsEvent = () => {
+  console.log('这是透传的原生事件属性')
+}
 let refBtn = ref(null)
 let refList = ref([])
 let split = ref(0.5)
@@ -120,5 +144,9 @@ onMounted(() => {
 .demo-right-pane {
   width: 100%;
   height: 100%;
+}
+.demo-card {
+  background-color: blueviolet;
+  border: 1px solid black;
 }
 </style>
