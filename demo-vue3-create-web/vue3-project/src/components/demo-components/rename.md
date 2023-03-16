@@ -9,3 +9,9 @@ vue2则没有这些  只是普通的异步、监听、变化、
 vue3组件事件添加了校验、可以定义列出vue组件的自定义事件  很好的将emit类型事件和原生类型事件进行区分 vue2则没有这个功能
 vue3 v-model添加了组件多个v-model可以绑定  v-model可以添加修饰符供子组件灵活配置相关功能    vue2则没有这些功能
 vue3提供了provide和reject的响应性状态  意味着这种通信方式的状态ref是可以是响应式的   vue2则是没有响应性的
+vue3自定义指令和vue2没有多大区别   自定义指令一般在需要对底层dom操作访问的时候才会用到   一般情况下不会用到
+vue3组合式函数比起vue2的混合   优化太多   组合式函数ref+解构清晰的数据来源  命名空间不冲突  解耦组合式函数可以嵌套使用
+vue3组合式api对组件实例data数据状态可以使用ref toRef toRefs这些来转换为响应式对象  这点和vue2有很大的不同  vue2只能是初始化定义 
+vue3组合式api和选项式api尽量选中一种使用   不要混合使用   类似export default{set up({})}   
+script setup和script一块使用的场景有三种：inheritAttrs禁止透传   模块导出声明name    运行在模块作用域只执行一次的副作用
+vue3中set up不能使用src属性

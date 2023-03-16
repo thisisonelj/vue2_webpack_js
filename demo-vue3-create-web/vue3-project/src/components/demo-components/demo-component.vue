@@ -119,9 +119,11 @@ watch(modalStatus, async function (value) {
 })
 onMounted(() => {
   modalStatus.value = false
+  // console.log(import.meta.env.VITE_SOME_KEY)
+  // console.log(__APP_ENV__)
 })
 </script>
-<style scoped>
+<style lang="less" scoped>
 .vue3-demo-main {
   width: 100%;
   height: 100%;
