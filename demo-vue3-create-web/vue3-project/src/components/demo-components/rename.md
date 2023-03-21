@@ -15,3 +15,8 @@ vue3组合式api对组件实例data数据状态可以使用ref toRef toRefs这�
 vue3组合式api和选项式api尽量选中一种使用   不要混合使用   类似export default{set up({})}   
 script setup和script一块使用的场景有三种：inheritAttrs禁止透传   模块导出声明name    运行在模块作用域只执行一次的副作用
 vue3中set up不能使用src属性
+vue3组合式api特性：逻辑复用  灵活的代码组织  类型推导通过变量和函数  更小的生产包体积
+vue的响应性是基于运行时的   vue3响应性以proxy代理为主拦截源对象生成代理对象  
+vue3相比vue2在渲染方面也就是rendertree虚拟dom上的优化：静态提升  静态的不变的模板以及页面dom元素一般情况下会被略过,不重新渲染
+更新类型标记   在编译模板时，在编译后的vnode上添加类型标记，可以更快的定位node节点，进行更新渲染
+树结构打平  将原来的vnode树中变化的树节点列出来组合成一个数组   相对于遍历数组而不是一个树结构   速度更快
