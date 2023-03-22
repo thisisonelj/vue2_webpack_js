@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 import demoComponent from '../components/demo-components/demo-component.vue';
 import demoHome from '@views/demo-exe';
 const router = createRouter({
@@ -7,14 +7,14 @@ const router = createRouter({
     {
       path: '/index',
       name: 'demoComponent',
-      component: demoComponent
+      component: demoComponent,
     },
     {
       path: '/',
       name: 'Home',
-      component: demoHome
+      component: demoHome,
     },
-  ]
-})
+  ],
+});
 
-export default router
+export default router;
