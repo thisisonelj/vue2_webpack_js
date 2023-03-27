@@ -9,10 +9,11 @@ import ElementPlus from 'element-plus';
 //import './assets/main.css'
 import 'element-plus/dist/index.css';
 import zhCn from 'element-plus/es/locale/lang/zh-cn';
+import Xeutils from 'xe-utils';
 const app = createApp(App);
-
 app.use(createPinia());
 app.use(router);
 app.use(ViewUIPlus);
 app.use(ElementPlus, { size: '', zIndex: 3000 });
+app.config.globalProperties.$Xeutils = Xeutils;
 app.mount('#app');
