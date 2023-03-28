@@ -25,7 +25,7 @@
                 :value="selectValues[item.key]"
                 placeholder="请选择"
                 :style="{ width: '200px' }"
-                @change="selectChange($event, item.key)"
+                @change="selectChange($event, item)"
               >
                 <el-option
                   v-for="element in item.selectList"
@@ -66,6 +66,10 @@
   import type { FormInstance, FormRules } from 'element-plus';
   import storeApi from '../../../utils/storeApi';
   import { ElMessage } from 'element-plus';
+  interface selectTemplate {
+    value: string;
+    label: string;
+  }
   interface selectType {
     storeId: string;
     goodId: string;
@@ -110,9 +114,16 @@
   const ruleFormRef = ref<FormInstance>(null);
 
   const checkstoreId = (rule: any, value: any, callback: any) => {
+    // let storeIdList: Array<String> = props.formList[0].selectList.map((e) => {
+    //   return e.value;
+    // });
     if (!value) {
       callback(new Error('请输入店铺标识'));
-    } else {
+    }
+    // } else if (storeIdList.includes(value)) {
+    //   callback(new Error('店铺标识重复'));
+    // }
+    else {
       callback();
     }
   };
@@ -124,9 +135,16 @@
     }
   };
   const checkgoodId = (rule: any, value: any, callback: any) => {
+    // let goodIdList: Array<String> = props.formList[2].selectList.map((e) => {
+    //   return e.value;
+    // });
     if (!value) {
       callback(new Error('请输入货物标识'));
-    } else {
+    }
+    // } else if (goodIdList.includes(value)) {
+    //   callback(new Error('货物标识重复'));
+    // }
+    else {
       callback();
     }
   };
@@ -165,14 +183,22 @@
       }
     });
   };
-  let selectChange = ($event, data) => {
-    if (data === 'storeId') {
+  let selectChange = ($event: string, data: { value?: string; key?: string; label?: string }) => {
+    if (data.key === 'storeId') {
+      let storeIdList: Array<selectTemplate> = props.formList[0].selectList;
       selectValues.value.storeId = $event;
       formData.value.storeId = $event;
+      formData.value.storeName = storeIdList.filter((e) => {
+        return e.value === $event;
+      })[0].label;
     }
-    if (data === 'goodId') {
+    if (data.key === 'goodId') {
+      let goodIdList: Array<selectTemplate> = props.formList[2].selectList;
       selectValues.value.goodId = $event;
       formData.value.goodId = $event;
+      formData.value.goodName = goodIdList.filter((e) => {
+        return e.value === $event;
+      })[0].label;
     }
   };
   onMounted(() => {});

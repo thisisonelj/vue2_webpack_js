@@ -10,12 +10,12 @@
       <Split v-model="contentSplit">
         <template #left>
           <div class="demo-split-left-pane">
-            <store-tree :tree-list="treeList" />
+            <store-tree :tree-list="treeList" @node-display="nodeClick" />
           </div>
         </template>
         <template #right>
           <div class="demo-split-right-pane">
-            <store-table :table-list="tableList" />
+            <store-table :table-list="tableList" @delete-row="deleteClick" />
           </div>
         </template>
       </Split>
@@ -49,6 +49,8 @@
   import insertModal from '../../components/storeComponents/modal/insert-modal.vue';
   import storeApi from '../../utils/storeApi';
   import { ElMessage } from 'element-plus';
+  import commonObject from '../../utils/utils';
+
   interface formtemplate {
     type: string;
     width: number;
@@ -156,9 +158,10 @@
       .queryGoods()
       .then((res) => {
         if (res.status === 200) {
-          formList.value[2].selectList = res.data.map((item) => {
+          let resultArray = res.data.map((item) => {
             return { value: item.goodId, label: item.goodName };
           });
+          formList.value[2].selectList = commonObject.arrayDeduplication(resultArray, []);
         } else {
           ElMessage({
             message: '获取货物列表失败',
@@ -191,7 +194,7 @@
       .queryall()
       .then((res) => {
         if (res.status === 200) {
-          res.data.forEach((element) => {
+          res.data.store.forEach((element) => {
             treeTemplate.push({
               id: element.id,
               storeId: element.storeId,
@@ -200,15 +203,16 @@
               createTime: element.createTime,
               label: element.storeName,
             });
-            tableTemplate.push({
-              id: element.aliaId,
-              storeId: element.storeId,
-              goodId: element.goodId,
-              goodName: element.goodName,
-              createTime: element.createTime,
-            });
           });
+          tableTemplate = res.data.good;
           treeList.value = Xeutils.toArrayTree(treeTemplate);
+          tableTemplate.forEach((element) => {
+            let storeNameList = formList.value[0].selectList;
+            let resultArray = storeNameList.filter((e) => {
+              return e.value === element.storeId;
+            });
+            element.storeName = resultArray[0].label;
+          });
           tableList.value = tableTemplate;
         } else {
           ElMessage({
@@ -268,6 +272,60 @@
   };
   let cancelOperation = ($event) => {
     insertStatus.value = $event.modalStatus;
+  };
+  let nodeClick = ($event: { id?: string; [propName: string]: any }) => {
+    storeApi
+      .queryByStoreId($event.data)
+      .then((res) => {
+        if (res.status === 200) {
+          let result = res.data;
+          let resultArray = formList.value[0].selectList;
+          result.forEach((element) => {
+            let filterResult = resultArray.filter((e) => {
+              return e.value === element.storeId;
+            });
+            element.storeName = filterResult[0].label;
+          });
+          tableList.value = result;
+        } else {
+          ElMessage({
+            message: '获取数据失败',
+            type: 'warning',
+          });
+        }
+      })
+      .catch((error) => {
+        ElMessage({
+          message: `${error}`,
+          type: 'error',
+        });
+      });
+  };
+  let deleteClick = ($event) => {
+    storeApi
+      .deleteByGoodid($event.data)
+      .then((res) => {
+        if (res.status === 200) {
+          tableList.value = tableList.value.filter((e) => {
+            return e.id !== $event.data.id;
+          });
+          ElMessage({
+            message: '删除货物成功',
+            type: 'success',
+          });
+        } else {
+          ElMessage({
+            message: '删除货物失败',
+            type: 'warning',
+          });
+        }
+      })
+      .catch((error) => {
+        ElMessage({
+          message: `${error}`,
+          type: 'error',
+        });
+      });
   };
   let updateStoreInfo = () => {};
   let selectStoreInfo = () => {};

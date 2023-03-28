@@ -24,6 +24,20 @@ const queryAllApi: (data?: {}, url?: string | undefined) => any = function (
 ): any {
   return http.post(url);
 };
+//查询所有店铺对应货物列表信息 ---根据storeId来查询
+const queryByStoreIdApi: (data?: {}, url?: string | undefined) => any = function (
+  data: {},
+  url = '/rest/demo/store/querybystoreid',
+): any {
+  return http.post(url, data);
+};
+//查询所有店铺对应货物列表信息 ---根据storeId来查询
+const deleteByGoodidApi: (data?: {}, url?: string | undefined) => any = function (
+  data: {},
+  url = '/rest/demo/store/deletebygoodid',
+): any {
+  return http.post(url, data);
+};
 interface dataType {
   insert: any;
   select: any;
@@ -32,10 +46,14 @@ interface dataType {
   queryStores: any;
   queryGoods: any;
   queryall: any;
+  queryByStoreId: any;
+  deleteByGoodid: any;
 }
 const storeApi = <dataType>{};
 storeApi.insert = addApi;
 storeApi.queryStores = queryStoresApi;
 storeApi.queryGoods = queryGoodsApi;
 storeApi.queryall = queryAllApi;
+storeApi.queryByStoreId = queryByStoreIdApi;
+storeApi.deleteByGoodid = deleteByGoodidApi;
 export default storeApi;

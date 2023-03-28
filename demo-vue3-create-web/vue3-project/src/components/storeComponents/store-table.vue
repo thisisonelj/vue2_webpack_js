@@ -1,7 +1,7 @@
 <template>
   <div class="ts-table-main">
     <el-table :data="tableList" style="width: 100%">
-      <el-table-column label="id" width="180">
+      <el-table-column label="id" width="150">
         <template #default="scope">
           <div style="display: flex; align-items: center">
             <el-icon><timer /></el-icon>
@@ -9,7 +9,7 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="店铺标识" width="180">
+      <el-table-column label="店铺标识" width="150">
         <template #default="scope">
           <div style="display: flex; align-items: center">
             <el-icon><timer /></el-icon>
@@ -17,7 +17,15 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="货物标识" width="180">
+      <el-table-column label="店铺名称" width="150">
+        <template #default="scope">
+          <div style="display: flex; align-items: center">
+            <el-icon><timer /></el-icon>
+            <span style="margin-left: 10px">{{ scope.row.storeName }}</span>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column label="货物标识" width="150">
         <template #default="scope">
           <div style="display: flex; align-items: center">
             <el-icon><timer /></el-icon>
@@ -25,7 +33,7 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="货物名称" width="180">
+      <el-table-column label="货物名称" width="150">
         <template #default="scope">
           <div style="display: flex; align-items: center">
             <el-icon><timer /></el-icon>
@@ -33,7 +41,7 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="日期时间" width="180">
+      <el-table-column label="日期时间" width="150">
         <template #default="scope">
           <div style="display: flex; align-items: center">
             <el-icon><timer /></el-icon>
@@ -43,9 +51,9 @@
       </el-table-column>
       <el-table-column label="Operations">
         <template #default="scope">
-          <el-button size="small" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+          <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)"
-            >Delete</el-button
+            >删除</el-button
           >
         </template>
       </el-table-column>
@@ -68,7 +76,7 @@
     tableList: rowType[];
   }
   const emit = defineEmits<{
-    (e: 'confirm-opration', data: {}): void;
+    (e: 'delete-row', data: {}): void;
     (e: 'cancel-operation', data: {}): void;
   }>();
   const props = withDefaults(defineProps<Props>(), {
@@ -79,7 +87,7 @@
     console.log(index, row);
   };
   const handleDelete = (index: number, row: rowType) => {
-    console.log(index, row);
+    emit('delete-row', { data: row });
   };
 </script>
 <style lang="less" scoped>
