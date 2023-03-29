@@ -24,17 +24,31 @@ const queryAllApi: (data?: {}, url?: string | undefined) => any = function (
 ): any {
   return http.post(url);
 };
-//查询所有店铺对应货物列表信息 ---根据storeId来查询
+//根据店铺Id来查询对应货物信息 ---根据storeId来查询
 const queryByStoreIdApi: (data?: {}, url?: string | undefined) => any = function (
   data: {},
   url = '/rest/demo/store/querybystoreid',
 ): any {
   return http.post(url, data);
 };
-//查询所有店铺对应货物列表信息 ---根据storeId来查询
+//根据店铺Id列表来查询对应货物信息 ---根据storeId列表来查询
+const queryByStoreIdListApi: (data?: {}, url?: string | undefined) => any = function (
+  data: {},
+  url = '/rest/demo/store/querybystoreidlist',
+): any {
+  return http.post(url, data);
+};
+//删除对应货物id信息 ---根据id来删除
 const deleteByGoodidApi: (data?: {}, url?: string | undefined) => any = function (
   data: {},
   url = '/rest/demo/store/deletebygoodid',
+): any {
+  return http.post(url, data);
+};
+//修改对应货物id信息 ---根据id来修改
+const updateByGoodidApi: (data?: {}, url?: string | undefined) => any = function (
+  data: {},
+  url = '/rest/demo/store/updatebygoodid',
 ): any {
   return http.post(url, data);
 };
@@ -48,6 +62,8 @@ interface dataType {
   queryall: any;
   queryByStoreId: any;
   deleteByGoodid: any;
+  updateByGoodid: any;
+  queryByStoreIdList: any;
 }
 const storeApi = <dataType>{};
 storeApi.insert = addApi;
@@ -56,4 +72,6 @@ storeApi.queryGoods = queryGoodsApi;
 storeApi.queryall = queryAllApi;
 storeApi.queryByStoreId = queryByStoreIdApi;
 storeApi.deleteByGoodid = deleteByGoodidApi;
+storeApi.updateByGoodid = updateByGoodidApi;
+storeApi.queryByStoreIdList = queryByStoreIdListApi;
 export default storeApi;

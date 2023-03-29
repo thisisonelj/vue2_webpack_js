@@ -5,17 +5,28 @@
       <el-button type="success" @click="updateStoreInfo">{{ displayBtn[1] }}</el-button>
       <el-button type="info" @click="selectStoreInfo">{{ displayBtn[2] }}</el-button>
       <el-button type="warning" @click="deleteStoreInfo">{{ displayBtn[3] }}</el-button>
+      <el-button type="default" @click="saveGoodInfo">{{ displayBtn[4] }}</el-button>
     </div>
     <div class="ts-content">
       <Split v-model="contentSplit">
         <template #left>
           <div class="demo-split-left-pane">
-            <store-tree :tree-list="treeList" @node-display="nodeClick" />
+            <store-tree
+              :tree-list="treeList"
+              @node-display="nodeClick"
+              ref="storeTreeData"
+              @check-operation="getCheckedNodes"
+            />
           </div>
         </template>
         <template #right>
           <div class="demo-split-right-pane">
-            <store-table :table-list="tableList" @delete-row="deleteClick" />
+            <store-table
+              :table-list="tableList"
+              @delete-row="deleteClick"
+              @update-row="updateClick"
+              ref="storeTableData"
+            />
           </div>
         </template>
       </Split>
@@ -48,7 +59,7 @@
   import storeTable from '../../components/storeComponents/store-table.vue';
   import insertModal from '../../components/storeComponents/modal/insert-modal.vue';
   import storeApi from '../../utils/storeApi';
-  import { ElMessage } from 'element-plus';
+  import { ElMessage, ElTree } from 'element-plus';
   import commonObject from '../../utils/utils';
 
   interface formtemplate {
@@ -78,7 +89,7 @@
   let tableList = ref([]);
   let treeList = ref([]);
   let insertStatus = ref(false);
-  let displayBtn = ref(['增加', '修改', '查询', '删除']);
+  let displayBtn = ref(['增加', '修改', '查询', '删除', '保存']);
   let contentSplit = ref(0.2);
   let currentPage = ref(1);
   let pageSize = ref(5);
@@ -87,6 +98,8 @@
   const background = ref(false);
   const disabled = ref(false);
   const Xeutils = getCurrentInstance().appContext.config.globalProperties.$Xeutils;
+  let checkedTreeNodes = ref([]);
+  const storeTreeData = ref(null);
   let formList = ref<formtemplate[]>([
     {
       type: 'input',
@@ -212,6 +225,8 @@
               return e.value === element.storeId;
             });
             element.storeName = resultArray[0].label;
+            element.editStatus = true;
+            element.editInputStatus = false;
           });
           tableList.value = tableTemplate;
         } else {
@@ -285,6 +300,8 @@
               return e.value === element.storeId;
             });
             element.storeName = filterResult[0].label;
+            element.editStatus = true;
+            element.editInputStatus = false;
           });
           tableList.value = result;
         } else {
@@ -327,6 +344,15 @@
         });
       });
   };
+  let updateClick = ($event) => {
+    tableList.value.forEach((element) => {
+      if (element.id === $event.data.id) {
+        element.editStatus = false;
+        element.editInputStatus = true;
+      }
+    });
+  };
+  let saveGoodInfo = () => {};
   let updateStoreInfo = () => {};
   let selectStoreInfo = () => {};
   let deleteStoreInfo = () => {};
@@ -336,7 +362,51 @@
   const handleCurrentChange = (val: number) => {
     console.log(`current page: ${val}`);
   };
-  onMounted(() => {});
+  const getCheckedNodes = ($event) => {
+    checkedTreeNodes.value = $event.data;
+  };
+  onMounted(() => {
+    checkedTreeNodes.value = storeTreeData.value.treeData.getCheckedNodes();
+  });
+  watch(checkedTreeNodes, (value: any[]) => {
+    console.log(value);
+    let checkedNodes = value.filter((e) => {
+      return e.id !== 'root';
+    });
+    if (value.length === 0) {
+      const $event = { data: { id: 'root' } };
+      nodeClick($event);
+    } else {
+      storeApi
+        .queryByStoreIdList(checkedNodes)
+        .then((res) => {
+          if (res.status === 200) {
+            let result = res.data;
+            let resultArray = formList.value[0].selectList;
+            result.forEach((element) => {
+              let filterResult = resultArray.filter((e) => {
+                return e.value === element.storeId;
+              });
+              element.storeName = filterResult[0].label;
+              element.editStatus = true;
+              element.editInputStatus = false;
+            });
+            tableList.value = result;
+          } else {
+            ElMessage({
+              message: '获取货物失败',
+              type: 'warning',
+            });
+          }
+        })
+        .catch((error) => {
+          ElMessage({
+            message: `${error}`,
+            type: 'error',
+          });
+        });
+    }
+  });
 </script>
 <style lang="less" scoped>
   .ts-main {

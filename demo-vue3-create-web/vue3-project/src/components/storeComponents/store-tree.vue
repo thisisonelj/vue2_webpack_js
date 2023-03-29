@@ -10,6 +10,9 @@
       :props="defaultProps"
       @node-click="nodeClick"
       :expand-on-click-node="false"
+      @check="check"
+      :check-strictly="true"
+      @check-change="checkChange"
     />
   </div>
 </template>
@@ -27,6 +30,7 @@
     treeList: Tree[];
   }
   const treeRef = ref<InstanceType<typeof ElTree>>();
+  let checkedNodes = ref([]);
   const defaultProps = {
     children: 'children',
     label: 'label',
@@ -34,12 +38,40 @@
   const emit = defineEmits<{
     (e: 'node-display', data: {}): void;
     (e: 'cancel-operation', data: {}): void;
+    (e: 'check-operation', data: {}): void;
   }>();
   const props = withDefaults(defineProps<Props>(), {
     treeList: () => [{ id: 'root', label: '店铺', children: [] }],
   });
+  defineExpose({
+    treeData: treeRef,
+  });
   const nodeClick = (data, node, treeNode, event) => {
     emit('node-display', { data: data });
+  };
+  const checkOpration = () => {
+    nextTick(() => {
+      checkedNodes.value = treeRef.value.getCheckedNodes();
+      emit('check-operation', { data: checkedNodes.value });
+    });
+  };
+  const check = () => {
+    checkOpration();
+  };
+  const checkChange = (data, status: boolean) => {
+    if (data.id === 'root') {
+      if (status) {
+        nextTick(() => {
+          props.treeList[0].children.forEach((element) => {
+            treeRef.value.setChecked(element.id, true, false);
+          });
+        });
+      } else {
+        props.treeList[0].children.forEach((element) => {
+          treeRef.value.setChecked(element.id, false, false);
+        });
+      }
+    }
   };
   onMounted(() => {
     nextTick(() => {
@@ -47,6 +79,7 @@
         treeRef.value.setCurrentKey('root');
       }, 100);
     });
+    checkOpration();
   });
 </script>
 <style lang="less" scoped>
