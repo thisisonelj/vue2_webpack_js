@@ -45,10 +45,24 @@ const deleteByGoodidApi: (data?: {}, url?: string | undefined) => any = function
 ): any {
   return http.post(url, data);
 };
-//修改对应货物id信息 ---根据id来修改
+//修改对应货物id信息 ---根据id列表来修改
 const updateByGoodidApi: (data?: {}, url?: string | undefined) => any = function (
   data: {},
-  url = '/rest/demo/store/updatebygoodid',
+  url = '/rest/demo/store/updatebygoodidlist',
+): any {
+  return http.post(url, data);
+};
+//修改对应店铺id信息 ---根据id来修改
+const updateByStoreidApi: (data?: {}, url?: string | undefined) => any = function (
+  data: {},
+  url = '/rest/demo/store/updatebystoreid',
+): any {
+  return http.post(url, data);
+};
+//删除对应店铺id信息 ---根据id来删除
+const deleteByStoreidApi: (data?: {}, url?: string | undefined) => any = function (
+  data: {},
+  url = '/rest/demo/store/deletebystoreid',
 ): any {
   return http.post(url, data);
 };
@@ -64,6 +78,8 @@ interface dataType {
   deleteByGoodid: any;
   updateByGoodid: any;
   queryByStoreIdList: any;
+  updateByStoreid: any;
+  deleteByStoreid: any;
 }
 const storeApi = <dataType>{};
 storeApi.insert = addApi;
@@ -74,4 +90,6 @@ storeApi.queryByStoreId = queryByStoreIdApi;
 storeApi.deleteByGoodid = deleteByGoodidApi;
 storeApi.updateByGoodid = updateByGoodidApi;
 storeApi.queryByStoreIdList = queryByStoreIdListApi;
+storeApi.updateByStoreid = updateByStoreidApi;
+storeApi.deleteByStoreid = deleteByStoreidApi;
 export default storeApi;

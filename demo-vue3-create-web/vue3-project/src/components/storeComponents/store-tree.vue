@@ -13,12 +13,39 @@
       @check="check"
       :check-strictly="true"
       @check-change="checkChange"
-    />
+    >
+      <template #default="{ node, data }">
+        <span class="tree-node-btns">
+          <span>{{ node.label }}</span>
+          <span v-if="data.id !== 'root'" class="two-svg">
+            <Edit style="width: 1em; height: 1em; margin-right: 8px" @click="editEvent(data)" />
+            <Delete style="width: 1em; height: 1em; margin-right: 8px" @click="deleteEvent(data)" />
+          </span>
+        </span>
+      </template>
+    </el-tree>
+    <el-dialog
+      v-model="dialogEditStatus"
+      :title="editTitle"
+      :show-close="false"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      width="320"
+      style="height: 200px"
+    >
+      <el-input v-model="storeEditName" placeholder="请输入店铺名称" />
+      <template #footer>
+        <span class="edit-dialog-footer">
+          <el-button @click="dialogEditStatus = false">取消</el-button>
+          <el-button type="primary" @click="editConfirm">确定</el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { ElTree } from 'element-plus';
+  import { ElTree, ElMessageBox } from 'element-plus';
   import { ref, computed, watch, onMounted, provide, getCurrentInstance, nextTick } from 'vue';
   interface Tree {
     id: string;
@@ -29,6 +56,10 @@
   interface Props {
     treeList: Tree[];
   }
+  let editCacheData = ref(null);
+  let dialogEditStatus = ref(false);
+  let editTitle = ref('修改店铺弹窗');
+  let storeEditName = ref('');
   const treeRef = ref<InstanceType<typeof ElTree>>();
   let checkedNodes = ref([]);
   const defaultProps = {
@@ -39,6 +70,8 @@
     (e: 'node-display', data: {}): void;
     (e: 'cancel-operation', data: {}): void;
     (e: 'check-operation', data: {}): void;
+    (e: 'edit-operation', data: {}): void;
+    (e: 'delete-operation', data: {}): void;
   }>();
   const props = withDefaults(defineProps<Props>(), {
     treeList: () => [{ id: 'root', label: '店铺', children: [] }],
@@ -73,6 +106,18 @@
       }
     }
   };
+  const editConfirm = () => {
+    editCacheData.value.storeName = storeEditName.value;
+    emit('edit-operation', { data: editCacheData.value });
+    dialogEditStatus.value = false;
+  };
+  const editEvent = (data) => {
+    editCacheData.value = data;
+    dialogEditStatus.value = true;
+  };
+  const deleteEvent = (data) => {
+    emit('delete-operation', { data: data });
+  };
   onMounted(() => {
     nextTick(() => {
       setTimeout(() => {
@@ -87,5 +132,14 @@
     width: 100%;
     height: 100%;
     overflow: auto;
+    .tree-node-btns {
+      font-size: 16px;
+      display: inline-block;
+      .two-svg {
+        display: inline-block;
+        vertical-align: -7%;
+        margin-left: 60%;
+      }
+    }
   }
 </style>

@@ -2,9 +2,7 @@
   <div class="ts-main">
     <div class="ts-top">
       <el-button type="primary" @click="insertStoreInfo">{{ displayBtn[0] }}</el-button>
-      <el-button type="success" @click="updateStoreInfo">{{ displayBtn[1] }}</el-button>
       <el-button type="info" @click="selectStoreInfo">{{ displayBtn[2] }}</el-button>
-      <el-button type="warning" @click="deleteStoreInfo">{{ displayBtn[3] }}</el-button>
       <el-button type="default" @click="saveGoodInfo">{{ displayBtn[4] }}</el-button>
     </div>
     <div class="ts-content">
@@ -16,6 +14,8 @@
               @node-display="nodeClick"
               ref="storeTreeData"
               @check-operation="getCheckedNodes"
+              @edit-operation="editOperation"
+              @delete-operation="deletOperation"
             />
           </div>
         </template>
@@ -59,8 +59,9 @@
   import storeTable from '../../components/storeComponents/store-table.vue';
   import insertModal from '../../components/storeComponents/modal/insert-modal.vue';
   import storeApi from '../../utils/storeApi';
-  import { ElMessage, ElTree } from 'element-plus';
+  import { ElMessage, ElTree, ElMessageBox } from 'element-plus';
   import commonObject from '../../utils/utils';
+  import { nextTick } from 'process';
 
   interface formtemplate {
     type: string;
@@ -265,6 +266,8 @@
         .insert(insertValue)
         .then((res) => {
           if (res.status === 200) {
+            storeListQuery();
+            goodsListQuery();
             ElMessage({
               message: '注册添加成功',
               type: 'success',
@@ -326,6 +329,8 @@
           tableList.value = tableList.value.filter((e) => {
             return e.id !== $event.data.id;
           });
+          storeListQuery();
+          goodsListQuery();
           ElMessage({
             message: '删除货物成功',
             type: 'success',
@@ -352,15 +357,175 @@
       }
     });
   };
-  let saveGoodInfo = () => {};
-  let updateStoreInfo = () => {};
+  let saveGoodInfo = () => {
+    if (checkedTreeNodes.value.length === 0) {
+      ElMessage({
+        message: '请先选择店铺节点',
+        type: 'warning',
+      });
+      return;
+    }
+    ElMessageBox.confirm('确定保存吗', '保存货物信息弹窗', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+      customClass: 'el-message-confirm',
+    }).then(() => {
+      storeApi
+        .updateByGoodid(tableList.value)
+        .then((res) => {
+          if (res.status === 200) {
+            tableList.value.forEach((element) => {
+              element.editStatus = true;
+              element.editInputStatus = false;
+            });
+            storeListQuery();
+            goodsListQuery();
+            ElMessage({
+              type: 'success',
+              message: '保存成功',
+            });
+          } else {
+            ElMessage({
+              message: '保存货物失败',
+              type: 'warning',
+            });
+          }
+        })
+        .catch((error) => {
+          ElMessage({
+            message: `${error}`,
+            type: 'error',
+          });
+        });
+    });
+  };
+
   let selectStoreInfo = () => {};
-  let deleteStoreInfo = () => {};
   const handleSizeChange = (val: number) => {
     console.log(`${val} items per page`);
   };
   const handleCurrentChange = (val: number) => {
     console.log(`current page: ${val}`);
+  };
+  let treeOperation = ($event, operationType: { msg: string; type: number }) => {
+    storeListQuery();
+    goodsListQuery();
+    let goodsList = storeApi.queryByStoreId($event.data);
+    if (operationType.type === 0) {
+      goodsList = storeApi.queryByStoreId({ id: 'root' });
+    }
+    let storeList = storeApi.queryStores();
+    Promise.all([goodsList, storeList])
+      .then(([res1, res2]) => {
+        if (res1.status === 200 && res2.status === 200) {
+          let result = res1.data;
+          let resultArray = formList.value[0].selectList;
+          result.forEach((element) => {
+            let filterResult = resultArray.filter((e) => {
+              return e.value === element.storeId;
+            });
+            element.storeName = filterResult[0].label;
+            element.editStatus = true;
+            element.editInputStatus = false;
+          });
+          tableList.value = result;
+          let treeTemplate: Array<treeTypeList> = [
+            {
+              id: 'root',
+              storeId: '',
+              storeName: '',
+              parentId: '',
+              createTime: Xeutils.toDateString(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+              label: '店铺',
+            },
+          ];
+          res2.data.forEach((element) => {
+            treeTemplate.push({
+              id: element.id,
+              storeId: element.storeId,
+              storeName: element.storeName,
+              parentId: element.parentId,
+              createTime: element.createTime,
+              label: element.storeName,
+            });
+          });
+          treeList.value = Xeutils.toArrayTree(treeTemplate);
+          nextTick(() => {
+            if (operationType.type === 1)
+              storeTreeData.value.treeData.setCurrentKey($event.data.id);
+            else storeTreeData.value.treeData.setCurrentKey('root');
+          });
+        } else {
+          ElMessage({
+            message: `${operationType.msg}`,
+            type: 'warning',
+          });
+        }
+      })
+      .catch((error) => {
+        ElMessage({
+          message: `${error}`,
+          type: 'error',
+        });
+      });
+  };
+
+  let editOperation = ($event) => {
+    storeApi
+      .updateByStoreid($event.data)
+      .then((res) => {
+        if (res.status === 200) {
+          const operationType = { msg: '更新店铺失败', type: 1 };
+          treeOperation($event, operationType);
+          ElMessage({
+            type: 'success',
+            message: '更新店铺成功',
+          });
+        } else {
+          ElMessage({
+            message: '更新店铺失败',
+            type: 'warning',
+          });
+        }
+      })
+      .catch((error) => {
+        ElMessage({
+          message: `${error}`,
+          type: 'error',
+        });
+      });
+  };
+  let deletOperation = ($event) => {
+    ElMessageBox.confirm('确定删除吗', '删除店铺信息弹窗', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+      customClass: 'el-message-confirm',
+    })
+      .then(() => {
+        storeApi.deleteByStoreid($event.data).then((res) => {
+          if (res.status === 200) {
+            const operationType = { msg: '删除店铺失败', type: 0 };
+            treeOperation($event, operationType);
+            ElMessage({
+              type: 'success',
+              message: '删除店铺成功',
+            });
+          } else {
+            ElMessage({
+              message: '删除店铺失败',
+              type: 'warning',
+            });
+          }
+        });
+      })
+      .catch((error) => {
+        ElMessage({
+          message: `${error}`,
+          type: 'error',
+        });
+      });
   };
   const getCheckedNodes = ($event) => {
     checkedTreeNodes.value = $event.data;
@@ -369,11 +534,10 @@
     checkedTreeNodes.value = storeTreeData.value.treeData.getCheckedNodes();
   });
   watch(checkedTreeNodes, (value: any[]) => {
-    console.log(value);
     let checkedNodes = value.filter((e) => {
       return e.id !== 'root';
     });
-    if (value.length === 0) {
+    if (value.length === 0 || (value.length === 1 && value[0].id === 'root')) {
       const $event = { data: { id: 'root' } };
       nodeClick($event);
     } else {
@@ -412,6 +576,7 @@
   .ts-main {
     width: 100%;
     height: 100%;
+
     .ts-content {
       width: 100%;
       height: 80%;
@@ -444,5 +609,10 @@
       justify-content: flex-end;
       padding: 10px;
     }
+  }
+</style>
+<style>
+  .el-message-confirm {
+    margin-top: -20%;
   }
 </style>
