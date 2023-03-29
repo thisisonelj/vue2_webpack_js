@@ -43,7 +43,7 @@ public class BankSchemeController {
     }
 
     @PostMapping("/selectbyscheme")
-    public ResultUtil<Object> bankSchemeDeleteById(@RequestBody SchemeBankDTO schemeBankDTO) {
+    public ResultUtil<Object> bankSchemeSelectByScheme(@RequestBody SchemeBankDTO schemeBankDTO) {
         return ResultUtil.resultSuccessful(bankSchemeServiceImpl.selectScheme(schemeBankDTO));
     }
 }
