@@ -1,11 +1,5 @@
-# vue2_webpack_js
-this is a list including a str example as 'vue 2 and webpack and js'
-这是一个基于vue2+webpack+js的很简单的前端框架的练习小项目
-
-
-
+demo-create-vue 这是基于vue2的js项目
 基本业务：
-
 其中主要涉及了有关银行的增删改查信息的相关业务，后端通过操作对数据库银行查询方案表、
 
 银行信息表的增删改查以及相关service接口的实现来返回前端需要的数据，基本上业务就是对
@@ -19,3 +13,5 @@ this is a list including a str example as 'vue 2 and webpack and js'
 前端：js、es6、css、less、框架Vue2、工程化工具：webpack 、脚手架：vue-cli3
 
 组件库：element-ui2.0、iview2.0    浏览器相关 axios 、vue-router.
+
+demo-create-
