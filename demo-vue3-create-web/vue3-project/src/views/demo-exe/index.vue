@@ -1,9 +1,9 @@
 <template>
   <div class="ts-main">
     <div class="ts-top">
-      <el-button type="primary" @click="insertStoreInfo">{{ displayBtn[0] }}</el-button>
-      <el-button type="info" @click="selectStoreInfo">{{ displayBtn[2] }}</el-button>
-      <el-button type="default" @click="saveGoodInfo">{{ displayBtn[4] }}</el-button>
+      <el-button type="primary" @click="insertStoreInfo">{{ displayBtn.INSERT }}</el-button>
+      <el-button type="info" @click="selectStoreInfo">{{ displayBtn.SELECT }}</el-button>
+      <el-button type="default" @click="saveGoodInfo">{{ displayBtn.SAVE }}</el-button>
     </div>
     <div class="ts-content">
       <Split v-model="contentSplit">
@@ -51,6 +51,12 @@
       @cancel-operation="cancelOperation"
       :formList="formList"
     />
+    <selectDrawer
+      :modal-status="selectStatus"
+      @confirm-select-opration="confirmSelectOperation"
+      @cancel-select-operation="cancelSelectOperation"
+      :drawerList="drawList"
+    />
   </div>
 </template>
 <script lang="ts" setup>
@@ -58,16 +64,18 @@
   import storeTree from '../../components/storeComponents/store-tree.vue';
   import storeTable from '../../components/storeComponents/store-table.vue';
   import insertModal from '../../components/storeComponents/modal/insert-modal.vue';
+  import selectDrawer from '../../components/storeComponents/modal/select-drawer.vue';
   import storeApi from '../../utils/storeApi';
   import { ElMessage, ElTree, ElMessageBox } from 'element-plus';
   import commonObject from '../../utils/utils';
   import { nextTick } from 'process';
   import { pagation } from '../../utils/pagation';
+  import { btnGroups } from '../../utils/enum';
   interface formtemplate {
     type: string;
     width: number;
-    key: string;
-    label: string;
+    key?: string;
+    label?: string;
     placeholder: string;
     [propName: string]: any;
   }
@@ -90,7 +98,7 @@
   let tableList = ref([]);
   let treeList = ref([]);
   let insertStatus = ref(false);
-  let displayBtn = ref(['增加', '修改', '查询', '删除', '保存']);
+  let displayBtn = ref(btnGroups);
   let contentSplit = ref(0.2);
   let currentPage = ref(1);
   let pageSize = ref(5);
@@ -102,6 +110,7 @@
   let checkedTreeNodes = ref([]);
   const storeTreeData = ref(null);
   let handleTotalRows = ref(null);
+  let selectStatus = ref(false);
   let formList = ref<formtemplate[]>([
     {
       type: 'input',
@@ -146,12 +155,43 @@
       placeholder: '请输入日期时间',
     },
   ]);
+  let drawList = ref<formtemplate[]>([
+    {
+      type: 'select',
+      width: 140,
+      key: 'storeId',
+      prop: 'storeId',
+      label: '店铺信息',
+      placeholder: '请输入店铺信息',
+      selectList: [],
+    },
+    {
+      type: 'datetime',
+      width: 140,
+      content: {
+        startTime: {
+          key: 'startTime',
+          prop: 'startTime',
+          label: '开始日期',
+        },
+        endTime: {
+          key: 'endTime',
+          prop: 'endTime',
+          label: '结束日期',
+        },
+      },
+      placeholder: '请输入日期时间',
+    },
+  ]);
   let storeListQuery = () => {
     storeApi
       .queryStores()
       .then((res) => {
         if (res.status === 200) {
           formList.value[0].selectList = res.data.map((item) => {
+            return { value: item.storeId, label: item.storeName };
+          });
+          drawList.value[0].selectList = res.data.map((item) => {
             return { value: item.storeId, label: item.storeName };
           });
         } else {
@@ -412,7 +452,9 @@
     });
   };
 
-  let selectStoreInfo = () => {};
+  let selectStoreInfo = () => {
+    selectStatus.value = true;
+  };
   const handleSizeChange = (val: number) => {
     const pagationParam = {
       currentPage: 1,
@@ -557,6 +599,12 @@
   };
   const getCheckedNodes = ($event) => {
     checkedTreeNodes.value = $event.data;
+  };
+  const confirmSelectOperation = ($event) => {
+    selectStatus.value = false;
+  };
+  const cancelSelectOperation = ($event) => {
+    selectStatus.value = false;
   };
   onMounted(() => {
     checkedTreeNodes.value = storeTreeData.value.treeData.getCheckedNodes();
