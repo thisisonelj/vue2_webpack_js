@@ -62,7 +62,7 @@
   import { ElMessage, ElTree, ElMessageBox } from 'element-plus';
   import commonObject from '../../utils/utils';
   import { nextTick } from 'process';
-
+  import { pagation } from '../../utils/pagation';
   interface formtemplate {
     type: string;
     width: number;
@@ -101,6 +101,7 @@
   const Xeutils = getCurrentInstance().appContext.config.globalProperties.$Xeutils;
   let checkedTreeNodes = ref([]);
   const storeTreeData = ref(null);
+  let handleTotalRows = ref(null);
   let formList = ref<formtemplate[]>([
     {
       type: 'input',
@@ -192,6 +193,15 @@
   };
   storeListQuery();
   goodsListQuery();
+  let commonPagetion = (tableTemplate) => {
+    const pagationParam = { currentPage: 1, pageSize: 5, total: tableTemplate.length };
+    let pageResult = pagation(pagationParam, tableTemplate);
+    currentPage.value = 1;
+    pageSize.value = 5;
+    tableTotal.value = pageResult.total;
+    tableList.value = pageResult.data;
+    handleTotalRows.value = tableTemplate;
+  };
   let storeAllQuery = () => {
     let treeTemplate: Array<treeTypeList> = [
       {
@@ -229,7 +239,7 @@
             element.editStatus = true;
             element.editInputStatus = false;
           });
-          tableList.value = tableTemplate;
+          commonPagetion(tableTemplate);
         } else {
           ElMessage({
             message: '获取数据失败',
@@ -306,7 +316,7 @@
             element.editStatus = true;
             element.editInputStatus = false;
           });
-          tableList.value = result;
+          commonPagetion(result);
         } else {
           ElMessage({
             message: '获取数据失败',
@@ -326,9 +336,10 @@
       .deleteByGoodid($event.data)
       .then((res) => {
         if (res.status === 200) {
-          tableList.value = tableList.value.filter((e) => {
+          handleTotalRows.value = handleTotalRows.value.filter((e) => {
             return e.id !== $event.data.id;
           });
+          commonPagetion(handleTotalRows.value);
           storeListQuery();
           goodsListQuery();
           ElMessage({
@@ -403,10 +414,27 @@
 
   let selectStoreInfo = () => {};
   const handleSizeChange = (val: number) => {
-    console.log(`${val} items per page`);
+    const pagationParam = {
+      currentPage: 1,
+      pageSize: val,
+      total: handleTotalRows.value.length,
+    };
+    let pageResult = pagation(pagationParam, handleTotalRows.value);
+    currentPage.value = 1;
+    pageSize.value = val;
+    tableTotal.value = pageResult.total;
+    tableList.value = pageResult.data;
   };
   const handleCurrentChange = (val: number) => {
-    console.log(`current page: ${val}`);
+    const pagationParam = {
+      currentPage: val,
+      pageSize: pageSize.value,
+      total: handleTotalRows.value.length,
+    };
+    let pageResult = pagation(pagationParam, handleTotalRows.value);
+    currentPage.value = val;
+    tableTotal.value = pageResult.total;
+    tableList.value = pageResult.data;
   };
   let treeOperation = ($event, operationType: { msg: string; type: number }) => {
     storeListQuery();
@@ -429,7 +457,7 @@
             element.editStatus = true;
             element.editInputStatus = false;
           });
-          tableList.value = result;
+          commonPagetion(result);
           let treeTemplate: Array<treeTypeList> = [
             {
               id: 'root',
@@ -555,7 +583,7 @@
               element.editStatus = true;
               element.editInputStatus = false;
             });
-            tableList.value = result;
+            commonPagetion(result);
           } else {
             ElMessage({
               message: '获取货物失败',
