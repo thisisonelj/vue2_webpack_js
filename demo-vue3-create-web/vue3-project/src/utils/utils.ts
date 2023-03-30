@@ -2,6 +2,7 @@
 interface arrayObj {
   value: string;
   label: string;
+  [propName: string]: any;
 }
 const arrayDeduplication: (
   souceArray: Array<arrayObj>,

@@ -66,6 +66,14 @@ const deleteByStoreidApi: (data?: {}, url?: string | undefined) => any = functio
 ): any {
   return http.post(url, data);
 };
+
+//查询方案 ---根据店铺storeId和创建时间来查询
+const selectSchemeApi: (data?: {}, url?: string | undefined) => any = function (
+  data: {},
+  url = '/rest/demo/store/selectscheme',
+): any {
+  return http.post(url, data);
+};
 interface dataType {
   insert: any;
   select: any;
@@ -80,6 +88,7 @@ interface dataType {
   queryByStoreIdList: any;
   updateByStoreid: any;
   deleteByStoreid: any;
+  selectScheme: any;
 }
 const storeApi = <dataType>{};
 storeApi.insert = addApi;
@@ -92,4 +101,5 @@ storeApi.updateByGoodid = updateByGoodidApi;
 storeApi.queryByStoreIdList = queryByStoreIdListApi;
 storeApi.updateByStoreid = updateByStoreidApi;
 storeApi.deleteByStoreid = deleteByStoreidApi;
+storeApi.selectScheme = selectSchemeApi;
 export default storeApi;

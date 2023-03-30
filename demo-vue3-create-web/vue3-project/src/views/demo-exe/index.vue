@@ -60,7 +60,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref, computed, watch, onMounted, provide, getCurrentInstance } from 'vue';
+  import { ref, computed, watch, onMounted, provide, getCurrentInstance, nextTick } from 'vue';
   import storeTree from '../../components/storeComponents/store-tree.vue';
   import storeTable from '../../components/storeComponents/store-table.vue';
   import insertModal from '../../components/storeComponents/modal/insert-modal.vue';
@@ -68,7 +68,6 @@
   import storeApi from '../../utils/storeApi';
   import { ElMessage, ElTree, ElMessageBox } from 'element-plus';
   import commonObject from '../../utils/utils';
-  import { nextTick } from 'process';
   import { pagation } from '../../utils/pagation';
   import { btnGroups } from '../../utils/enum';
   interface formtemplate {
@@ -342,34 +341,65 @@
     insertStatus.value = $event.modalStatus;
   };
   let nodeClick = ($event: { id?: string; [propName: string]: any }) => {
-    storeApi
-      .queryByStoreId($event.data)
-      .then((res) => {
-        if (res.status === 200) {
-          let result = res.data;
-          let resultArray = formList.value[0].selectList;
-          result.forEach((element) => {
-            let filterResult = resultArray.filter((e) => {
-              return e.value === element.storeId;
+    if ($event.data.id === 'root') {
+      storeApi
+        .queryByStoreIdList($event.data.children)
+        .then((res) => {
+          if (res.status === 200) {
+            let result = res.data;
+            let resultArray = formList.value[0].selectList;
+            result.forEach((element) => {
+              let filterResult = resultArray.filter((e) => {
+                return e.value === element.storeId;
+              });
+              element.storeName = filterResult[0].label;
+              element.editStatus = true;
+              element.editInputStatus = false;
             });
-            element.storeName = filterResult[0].label;
-            element.editStatus = true;
-            element.editInputStatus = false;
-          });
-          commonPagetion(result);
-        } else {
+            commonPagetion(result);
+          } else {
+            ElMessage({
+              message: '获取货物失败',
+              type: 'warning',
+            });
+          }
+        })
+        .catch((error) => {
           ElMessage({
-            message: '获取数据失败',
-            type: 'warning',
+            message: `${error}`,
+            type: 'error',
           });
-        }
-      })
-      .catch((error) => {
-        ElMessage({
-          message: `${error}`,
-          type: 'error',
         });
-      });
+    } else {
+      storeApi
+        .queryByStoreId($event.data)
+        .then((res) => {
+          if (res.status === 200) {
+            let result = res.data;
+            let resultArray = formList.value[0].selectList;
+            result.forEach((element) => {
+              let filterResult = resultArray.filter((e) => {
+                return e.value === element.storeId;
+              });
+              element.storeName = filterResult[0].label;
+              element.editStatus = true;
+              element.editInputStatus = false;
+            });
+            commonPagetion(result);
+          } else {
+            ElMessage({
+              message: '获取数据失败',
+              type: 'warning',
+            });
+          }
+        })
+        .catch((error) => {
+          ElMessage({
+            message: `${error}`,
+            type: 'error',
+          });
+        });
+    }
   };
   let deleteClick = ($event) => {
     storeApi
@@ -592,8 +622,8 @@
       })
       .catch((error) => {
         ElMessage({
-          message: `${error}`,
-          type: 'error',
+          message: '取消成功',
+          type: 'info',
         });
       });
   };
@@ -601,51 +631,116 @@
     checkedTreeNodes.value = $event.data;
   };
   const confirmSelectOperation = ($event) => {
-    selectStatus.value = false;
+    let selectData = [];
+    for (let i = 0; i < $event.formData.storeId.length; i++) {
+      selectData.push({
+        storeId: $event.formData.storeId[i],
+        startTime: Xeutils.toDateString($event.formData.startTime, 'yyyy-MM-dd HH:mm:ss'),
+        endTime: Xeutils.toDateString($event.formData.endTime, 'yyyy-MM-dd HH:mm:ss'),
+      });
+    }
+    selectStatus.value = $event.modalStatus;
+    storeApi
+      .selectScheme(selectData)
+      .then((res) => {
+        if (res.status === 200) {
+          let resList = res.data;
+          resList.forEach((item) => {
+            item.value = item.id;
+            item.label = item.storeName;
+            item.editStatus = true;
+            item.editInputStatus = false;
+          });
+          let deDuplicationArray = commonObject.arrayDeduplication(resList, []);
+          let treeTemplate: Array<treeTypeList> = [
+            {
+              id: 'root',
+              storeId: '',
+              storeName: '',
+              parentId: '',
+              createTime: Xeutils.toDateString(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+              label: '店铺',
+            },
+          ];
+          deDuplicationArray.forEach((element) => {
+            treeTemplate.push({
+              id: element.id,
+              storeId: element.storeId,
+              storeName: element.storeName,
+              parentId: element.parentId,
+              createTime: element.createTime,
+              label: element.storeName,
+            });
+          });
+          treeList.value = Xeutils.toArrayTree(treeTemplate);
+          let tableTemplate = [...resList];
+          tableTemplate.forEach((element) => {
+            element.id = element.aliaId;
+          });
+          commonPagetion(tableTemplate);
+          nextTick(() => {
+            storeTreeData.value.treeData.setChecked('root', true, true);
+          });
+          ElMessage({
+            message: '查询成功',
+            type: 'success',
+          });
+        } else {
+          ElMessage({
+            message: '查询失败',
+            type: 'warning',
+          });
+        }
+      })
+      .catch((error) => {
+        ElMessage({
+          message: `${error}`,
+          type: 'error',
+        });
+      });
   };
   const cancelSelectOperation = ($event) => {
     selectStatus.value = false;
   };
   onMounted(() => {
+    setTimeout(() => {
+      storeTreeData.value.treeData.setCurrentKey('root');
+    }, 200);
     checkedTreeNodes.value = storeTreeData.value.treeData.getCheckedNodes();
   });
   watch(checkedTreeNodes, (value: any[]) => {
     let checkedNodes = value.filter((e) => {
       return e.id !== 'root';
     });
-    if (value.length === 0 || (value.length === 1 && value[0].id === 'root')) {
-      const $event = { data: { id: 'root' } };
-      nodeClick($event);
-    } else {
-      storeApi
-        .queryByStoreIdList(checkedNodes)
-        .then((res) => {
-          if (res.status === 200) {
-            let result = res.data;
-            let resultArray = formList.value[0].selectList;
-            result.forEach((element) => {
-              let filterResult = resultArray.filter((e) => {
-                return e.value === element.storeId;
-              });
-              element.storeName = filterResult[0].label;
-              element.editStatus = true;
-              element.editInputStatus = false;
+
+    storeApi
+      .queryByStoreIdList(checkedNodes)
+      .then((res) => {
+        if (res.status === 200) {
+          let result = res.data;
+          let resultArray = formList.value[0].selectList;
+          result.forEach((element) => {
+            let filterResult = resultArray.filter((e) => {
+              return e.value === element.storeId;
             });
-            commonPagetion(result);
-          } else {
-            ElMessage({
-              message: '获取货物失败',
-              type: 'warning',
-            });
-          }
-        })
-        .catch((error) => {
-          ElMessage({
-            message: `${error}`,
-            type: 'error',
+            element.storeName = filterResult[0].label;
+            element.editStatus = true;
+            element.editInputStatus = false;
           });
+          commonPagetion(result);
+        } else {
+          ElMessage({
+            message: '获取货物失败',
+            type: 'warning',
+          });
+        }
+      })
+      .catch((error) => {
+        ElMessage({
+          message: `${error}`,
+          type: 'error',
         });
-    }
+      });
   });
 </script>
 <style lang="less" scoped>

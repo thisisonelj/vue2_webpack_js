@@ -119,11 +119,6 @@
     emit('delete-operation', { data: data });
   };
   onMounted(() => {
-    nextTick(() => {
-      setTimeout(() => {
-        treeRef.value.setCurrentKey('root');
-      }, 100);
-    });
     checkOpration();
   });
 </script>

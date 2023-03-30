@@ -11,7 +11,7 @@
     >
       <template #default>
         <div>
-          <el-form :model="formData" ref="drawerRef">
+          <el-form :model="formData" ref="ruleFormRef" :rules="formRules">
             <el-form-item
               :label-width="item.width"
               v-for="item in drawerList"
@@ -68,6 +68,7 @@
 </template>
 <script lang="ts" setup>
   import { ref, computed, watch, onMounted, provide, reactive, getCurrentInstance } from 'vue';
+  import type { FormInstance, FormRules } from 'element-plus';
   import { ElMessageBox } from 'element-plus';
   interface Props {
     modalStatus: boolean;
@@ -95,6 +96,37 @@
   let drawerVisible = computed(() => {
     return props.modalStatus;
   });
+  const ruleFormRef = ref<FormInstance>(null);
+
+  const checkstoreId = (rule: any, value: any, callback: any) => {
+    if (value.length === 0) {
+      callback(new Error('请选择店铺信息'));
+    } else {
+      callback();
+    }
+  };
+
+  const checkStartTime = (rule: any, value: any, callback: any) => {
+    if (!value) {
+      callback(new Error('请输入开始日期'));
+    } else {
+      callback();
+    }
+  };
+
+  const checkEndTime = (rule: any, value: any, callback: any) => {
+    if (!value) {
+      callback(new Error('请输入结束日期'));
+    } else {
+      callback();
+    }
+  };
+  const formRules = ref<FormRules>({
+    storeId: [{ validator: checkstoreId, trigger: 'blur' }],
+    startTime: [{ validator: checkStartTime, trigger: 'blur' }],
+    endTime: [{ validator: checkEndTime, trigger: 'blur' }],
+  });
+
   const emit = defineEmits<{
     (e: 'confirm-select-opration', data: {}): void;
     (e: 'cancel-select-operation', data: {}): void;
@@ -104,10 +136,16 @@
     drawerList: () => [],
   });
   let cancelClick = () => {
-    emit('cancel-select-operation', { drawerStatus: false });
+    emit('cancel-select-operation', { data: formData });
   };
   let confirmClick = () => {
-    emit('confirm-select-opration', { drawerStatus: false });
+    ruleFormRef.value.validate((valid) => {
+      if (valid) {
+        emit('confirm-select-opration', { modalStatus: false, formData: formData.value });
+      } else {
+        return false;
+      }
+    });
   };
 </script>
 <style lang="less" scoped>
