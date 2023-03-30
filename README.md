@@ -1,3 +1,9 @@
+本仓库项目都是非常简单的最基本的crud的简单练习demo  没有涉及复杂的前端交互逻辑以及后端复杂逻辑  
+
+主要有vue2  vue3组合式api   js  ts   css  css3  less  webpack  vite   vue-cli  create-vue
+
+后端 javase  spring  mybatis  mysql
+
 demo-create-vue 这是基于vue2的js项目
 
 基本业务：
@@ -34,4 +40,5 @@ demo-create-vue3 这是基于vue3的ts项目
 
 组件库：element-plus、iview-plus
 
+vue2、vue3的后端工程项目：demo-vue-backend  这是基于idea的后端工程项目
 
