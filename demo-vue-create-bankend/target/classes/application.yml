@@ -1,0 +1,35 @@
+
+server:
+  # 配置服务端口
+  port: 8188
+  servlet:
+    context-path: /
+  # 配置请求响应自动压缩
+  compression:
+    enabled: true
+    # 配置支持压缩的文件类型
+    mime-types:
+    - application/json
+    - application/xml
+    - application/javascript
+    - text/html
+    - text/xml
+    - text/plain
+    - text/css
+    - text/javascript
+    # 配置响应压缩文件大小阈值（字节）。超过阈值的文件会被压缩。
+    min-response-size: 2048
+
+spring:
+  application:
+    name: demo
+
+
+  # 配置文件上传
+  servlet:
+    multipart:
+      enabled: true
+      resolve-lazily: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+
