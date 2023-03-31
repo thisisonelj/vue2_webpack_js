@@ -17,6 +17,10 @@ public class StoreDTO {
     private String goodName;
     private String aliaId;//用来获取货物信息的id别名
     private String parentId;//用来存放树结构的父节点
+    @JsonFormat(shape= JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    private Date startTime;
+    @JsonFormat(shape= JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    private Date endTime;
     public String getId() {
         return id;
     }
@@ -89,6 +93,22 @@ public class StoreDTO {
         this.parentId = parentId;
     }
 
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
     @Override
     public String toString() {
         return "StoreDTO{" +
@@ -101,6 +121,8 @@ public class StoreDTO {
                 ", goodName='" + goodName + '\'' +
                 ", aliaId='" + aliaId + '\'' +
                 ", parentId='" + parentId + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
                 '}';
     }
 }

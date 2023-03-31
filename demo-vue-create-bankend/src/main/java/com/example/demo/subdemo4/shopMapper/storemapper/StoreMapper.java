@@ -165,4 +165,22 @@ public interface StoreMapper {
             return  sql.toString();
         }
     }
+
+    /*
+       根据店铺Id、创建时间查询所有货物信息
+    */
+    @SelectProvider(type = StoreMapper.QueryGoodsByStoreId.class,method = "queryGoodsByStoreId")
+    List<StoreDTO> queryGoodsByStoreId(StoreDTO storeDTO);
+    class QueryGoodsByStoreId {
+        public String queryGoodsByStoreId() {
+            SQL sql = new SQL();
+            sql.SELECT("store_tb.id,store_tb.storeId,store_tb.storeName,store_tb.parentId");
+            sql.SELECT("good_tb.id as aliaId,good_tb.goodId,good_tb.goodName,good_tb.createTime");
+            sql.FROM("store_tb");
+            sql.INNER_JOIN("good_tb on store_tb.storeId = good_tb.storeId");
+            sql.WHERE("store_tb.storeId=#{storeId}");
+            sql.WHERE("good_tb.createTime between #{startTime} and #{endTime}");
+            return sql.toString();
+        }
+    }
 }

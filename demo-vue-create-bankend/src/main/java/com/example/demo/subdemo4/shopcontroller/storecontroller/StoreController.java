@@ -119,4 +119,13 @@ public class StoreController {
         }
 
     }
+
+    /*
+     查询方案查询店铺信息
+   */
+    @PostMapping("/selectscheme")
+    public ResultUtil<Object> selectScheme(@RequestBody List<StoreDTO> storeDTOList) {
+      return  ResultUtil.resultSuccessful(200,"查询方案查询成功",storeServiceImpl.selectScheme(storeDTOList));
+
+    }
 }

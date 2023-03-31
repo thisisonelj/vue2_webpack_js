@@ -17,4 +17,5 @@ public interface StoreService {
     Boolean goodsUpdateInfo(List<GoodDTO> goodDTOList);//修改货物信息根据id列表
     Boolean storeUpdateInfo(StoreDTO storeDTO);//修改店铺信息根据id
     Boolean storeRemoveInfo(StoreDTO storeDTO);//删除店铺信息根据id
+    List<StoreDTO> selectScheme(List<StoreDTO> storeDTOList);//查询方案根据createTime和店铺Id
 }

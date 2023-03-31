@@ -151,4 +151,19 @@ public class StoreServiceImpl implements StoreService {
             return false;
         }
     }
+
+    /*
+      查询方案查询页面信息
+     */
+    @Override
+    public List<StoreDTO> selectScheme(List<StoreDTO> storeDTOList) {
+       List<StoreDTO> storeDTOS=new ArrayList<>();
+        storeDTOList.forEach(item -> {
+           List<StoreDTO> storeDTOList1= storeMapper.queryGoodsByStoreId(item);
+           storeDTOList1.forEach(element -> {
+               storeDTOS.add(element);
+           });
+        });
+        return  storeDTOS;
+    }
 }
