@@ -40,3 +40,4 @@ npm run test:unit
 npm run lint
 ```
 ### this is a vue3+ts
+### this is a vite
