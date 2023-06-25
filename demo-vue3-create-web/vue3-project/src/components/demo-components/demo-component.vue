@@ -40,16 +40,22 @@
       </template>
       <template #right>
         <div class="demo-right-pane">
-          <demo-child2></demo-child2>
+          <demo-child2 />
           <demo-child4
             id="demoCard"
             style="background-color: blueviolet; border: 1px solid black"
             @click="attrsEvent"
             v-bind="$attrs"
-          ></demo-child4>
+          />
           <demo-child5>
-            <template v-slot:content="{slotList}">
-              <Input placeholder="Enter something..." style="width: 10%" v-for="item in slotList" :key="item.index" v-model="item.value"/>
+            <template #content="{ slotList }">
+              <Input
+                placeholder="Enter something..."
+                style="width: 10%"
+                v-for="item in slotList"
+                :key="item.index"
+                v-model="item.value"
+              />
             </template>
           </demo-child5>
         </div>
@@ -58,97 +64,97 @@
   </div>
 </template>
 <script setup>
-import demoChild2 from './demo-component-groups/demo-child2.vue'
-import demoChild4 from './demo-component-groups/demo-child4.vue'
-import demoChild5 from './demo-component-groups/demo-child5.vue'
-import { ref, computed, watch, onMounted, provide } from 'vue'
-let provideValue=ref('这是provide注入')
-provide('message',{
-  injectValue: provideValue,
-  modifyData: (e) => {
-    let param='注入完成'
-    e.value=`${param}`
-  }
-})
-let attrsEvent = () => {
-  console.log('这是透传的原生事件属性')
-}
-let refBtn = ref(null)
-let refList = ref([])
-let split = ref(0.5)
-let msg = ref({ name: 'liu', age: 24 })
-let defaultColor = ref('vue3-btn-color1')
-let btnColor = ref(['vue3-btn-color1', 'vue3-btn-color2'])
-let renderList = ref([
-  { name: 'liu', age: 24 },
-  { name: 'liu1', age: 24 },
-  { name: 'liu2', age: 24 }
-])
-let selectList = renderList
-let selectValue = ref('liu')
-let modalStatus = ref(false)
-let modalTitle = ref('iview-plus弹框')
-let checkStatus = ref(false)
-let cacheMsg = computed(() => {
-  return msg.value
-})
-let varyColor = computed(() => {
-  return defaultColor.value
-})
-let clickFunction1 = () => {
-  msg.value = { name: 'liu1', age: 25 }
-}
-let clickFunction2 = () => {
-  defaultColor.value = btnColor.value.filter((e) => e !== defaultColor.value)[0]
-}
-let clickFunction3 = (event) => {
-  console.log(event)
-}
-let confirmHandler = function () {
-  modalStatus.value = false
-}
-let cancelHandler = function () {
-  modalStatus.value = false
-}
-watch(modalStatus, async function (value) {
-  if (value) {
-    checkStatus.value = true
-  } else {
-    checkStatus.value = false
-  }
-})
-onMounted(() => {
-  modalStatus.value = false
-  // console.log(import.meta.env.VITE_SOME_KEY)
-  // console.log(__APP_ENV__)
-})
+  import demoChild2 from './demo-component-groups/demo-child2.vue';
+  import demoChild4 from './demo-component-groups/demo-child4.vue';
+  import demoChild5 from './demo-component-groups/demo-child5.vue';
+  import { ref, computed, watch, onMounted, provide } from 'vue';
+  let provideValue = ref('这是provide注入');
+  provide('message', {
+    injectValue: provideValue,
+    modifyData: (e) => {
+      let param = '注入完成';
+      e.value = `${param}`;
+    },
+  });
+  let attrsEvent = () => {
+    console.log('这是透传的原生事件属性');
+  };
+  let refBtn = ref(null);
+  let refList = ref([]);
+  let split = ref(0.5);
+  let msg = ref({ name: 'liu', age: 24 });
+  let defaultColor = ref('vue3-btn-color1');
+  let btnColor = ref(['vue3-btn-color1', 'vue3-btn-color2']);
+  let renderList = ref([
+    { name: 'liu', age: 24 },
+    { name: 'liu1', age: 24 },
+    { name: 'liu2', age: 24 },
+  ]);
+  let selectList = renderList;
+  let selectValue = ref('liu');
+  let modalStatus = ref(false);
+  let modalTitle = ref('iview-plus弹框');
+  let checkStatus = ref(false);
+  let cacheMsg = computed(() => {
+    return msg.value;
+  });
+  let varyColor = computed(() => {
+    return defaultColor.value;
+  });
+  let clickFunction1 = () => {
+    msg.value = { name: 'liu1', age: 25 };
+  };
+  let clickFunction2 = () => {
+    defaultColor.value = btnColor.value.filter((e) => e !== defaultColor.value)[0];
+  };
+  let clickFunction3 = (event) => {
+    console.log(event);
+  };
+  let confirmHandler = function () {
+    modalStatus.value = false;
+  };
+  let cancelHandler = function () {
+    modalStatus.value = false;
+  };
+  watch(modalStatus, async function (value) {
+    if (value) {
+      checkStatus.value = true;
+    } else {
+      checkStatus.value = false;
+    }
+  });
+  onMounted(() => {
+    modalStatus.value = false;
+    // console.log(import.meta.env.VITE_SOME_KEY)
+    // console.log(__APP_ENV__)
+  });
 </script>
 <style lang="less" scoped>
-.vue3-demo-main {
-  width: 100%;
-  height: 100%;
-}
-.demo-left-pane {
-  width: 100%;
-  height: 100%;
-  display: inline-flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-flow: row wrap;
-  /* align-content: flex-start; */
-}
-.vue3-btn-color1 {
-  background-color: red;
-}
-.vue3-btn-color2 {
-  background-color: blue;
-}
-.demo-right-pane {
-  width: 100%;
-  height: 100%;
-}
-.demo-card {
-  background-color: blueviolet;
-  border: 1px solid black;
-}
+  .vue3-demo-main {
+    width: 100%;
+    height: 100%;
+  }
+  .demo-left-pane {
+    width: 100%;
+    height: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-flow: row wrap;
+    /* align-content: flex-start; */
+  }
+  .vue3-btn-color1 {
+    background-color: red;
+  }
+  .vue3-btn-color2 {
+    background-color: blue;
+  }
+  .demo-right-pane {
+    width: 100%;
+    height: 100%;
+  }
+  .demo-card {
+    background-color: blueviolet;
+    border: 1px solid black;
+  }
 </style>
