@@ -32,6 +32,7 @@ Vue.prototype.$XeUtils = XeUtils
 Vue.prototype.$Sortable = Sortable
 Vue.prototype.$echarts = echarts
 /* eslint-disable no-new */
+console.log(process.env)
 new Vue({
   el: '#app', router, store: vuexModule, render: h => h(App)
 })

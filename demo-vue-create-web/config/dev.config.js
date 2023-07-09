@@ -48,9 +48,11 @@ const config = {
     },
     plugins: [
       new webpack.DefinePlugin({
+        NODE_ENV: JSON.stringify('signup'),
+        VUE_APP_VALUE: JSON.stringify('signup'),
         'process.env': {
-          NODE_ENV: process.env.NODE_ENV ? JSON.stringify(process.env.NODE_ENV) : JSON.stringify('development'),
-          SIGNUP_PATH: JSON.stringify('signup')
+          NODE_ENV: JSON.stringify('signup'), // process.env.NODE_ENV, // ? JSON.stringify(process.env.NODE_ENV) : JSON.stringify('development'),
+          VUE_APP_VALUE: JSON.stringify('signup')
         }
       })
     ],
