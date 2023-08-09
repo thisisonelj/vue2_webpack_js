@@ -48,7 +48,12 @@ const config = {
       extensions: ['.js', '.vue']
     },
     plugins: [
-    ]
+    ],
+    performance: {
+      hints: false,
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000
+    }
   },
   css: { extract: false },
 

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import displayPage from '@/components/display-page'
 import vuexDemo from './router-utils'// 练习vuex相关的组件
+import account from './account-router'
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -115,6 +116,11 @@ export default new Router({
       path: '/down',
       name: 'downComponent',
       component: vuexDemo.pullDownComponent
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: account.accountEntry
     }
   ]
 })

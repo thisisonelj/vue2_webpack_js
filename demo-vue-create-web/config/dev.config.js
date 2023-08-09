@@ -6,7 +6,7 @@ const config = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:8188',
+        target: 'http://127.0.0.1:8089',
         changeOrigin: true, // 是否跨域
         pathRewrite: {
           '^/api': ''
@@ -57,6 +57,11 @@ const config = {
       })
     ],
     optimization: {}
+    // performance: {
+    //   hints: false,
+    //   maxEntrypointSize: 512000,
+    //   maxAssetSize: 512000
+    // }
   },
   css: { extract: false },
 
