@@ -18,7 +18,7 @@ const config = {
     entry: {
       app: './demo-entry.js'
     },
-    devtool: 'source-map',
+    // devtool: 'source-map',
     output: {
       filename: '[name].bundle.js',
       library: 'portal_application',
