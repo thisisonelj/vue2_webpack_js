@@ -7,6 +7,9 @@
       <el-form-item :label="passWordLablel">
         <el-input v-model="accountForm.passWord"></el-input>
       </el-form-item>
+      <el-form-item style="text-align: center" v-if="!errorInfoStatus">
+        <span :class="loginStyle">{{ errorInfo }}</span>
+      </el-form-item>
     </el-form>
     <div>
       <Row type="flex" justify="center" class="code-row-bg">
@@ -22,6 +25,12 @@
 </template>
 <script>
 export default {
+  props: {
+    errorInfoStatus: {
+      type: Boolean,
+      default: true
+    }
+  },
   data () {
     return {
       accountForm: {
@@ -29,7 +38,15 @@ export default {
         passWord: ''
       },
       userLablel: '用户名',
-      passWordLablel: '密码'
+      passWordLablel: '密码',
+      errorInfo: '用户名或密码错误'
+    }
+  },
+  computed: {
+    loginStyle () {
+      return this.errorInfoStatus
+        ? { 'right-style': true }
+        : { 'error-style': true }
     }
   },
   components: {},
@@ -40,6 +57,7 @@ export default {
     registAccount () {
       this.$emit('regist-info', this.accountForm)
     }
+
   }
 }
 </script>
@@ -52,8 +70,28 @@ export default {
     transform: scale(1);
   }
 }
+
+@keyframes animationerror-rule {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+  }
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}
 .login-form {
   width: 30%;
   //animation: animationscale-rule 1s linear  both;
+}
+
+.error-style {
+  color: red;
+  animation: animationerror-rule 1s linear both;
+}
+
+.right-style {
+  display: none;
 }
 </style>
