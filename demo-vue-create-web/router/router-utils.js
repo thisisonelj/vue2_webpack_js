@@ -23,6 +23,7 @@ import browserComponent from '@/components/extend-problem/browser-compatible'
 import pullDownRefresh from '@/components/extend-problem/pull-down-refresh'
 import arthmeticComponent from '@/components/extend-problem/arthmetic'
 import pullDownComponent from '@/components/extend-problem/pull-down'
+import recursionComponent from '@/components/extend-problem/recursion.vue'
 export default {
   Index: Index,
   Parent: Parent,
@@ -48,5 +49,6 @@ export default {
   browserComponent: browserComponent,
   pullDownRefresh: pullDownRefresh,
   arthmeticComponent: arthmeticComponent,
-  pullDownComponent: pullDownComponent
+  pullDownComponent: pullDownComponent,
+  recursionComponent: recursionComponent
 }

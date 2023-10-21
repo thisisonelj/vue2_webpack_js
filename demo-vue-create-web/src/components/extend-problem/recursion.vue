@@ -3,7 +3,8 @@
     <div v-for="item in recursionList" :key="item.id">
       <Input v-model="item.name" />
       <recursion-component
-        v-if="item.children" :recursion-list="item.children"
+        v-if="item.children"
+        :recursion-list="item.children"
       ></recursion-component>
     </div>
   </div>
@@ -15,7 +16,16 @@ export default {
     recursionList: {
       type: Array,
       default: function () {
-        return []
+        return [
+          {
+            name: 'liu',
+            children: [
+              {
+                name: 'liu-child'
+              }
+            ]
+          }
+        ]
       }
     }
   },
@@ -28,9 +38,7 @@ export default {
       inputValue: 0
     }
   },
-  mounted () {
-
-  }
+  mounted () {}
 }
 </script>
 <style lang="less" scoped>

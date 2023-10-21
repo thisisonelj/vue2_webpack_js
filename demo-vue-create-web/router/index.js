@@ -113,6 +113,11 @@ export default new Router({
       component: vuexDemo.arthmeticComponent
     },
     {
+      path: '/recursion',
+      name: 'recursionComponent',
+      component: vuexDemo.recursionComponent
+    },
+    {
       path: '/down',
       name: 'downComponent',
       component: vuexDemo.pullDownComponent
