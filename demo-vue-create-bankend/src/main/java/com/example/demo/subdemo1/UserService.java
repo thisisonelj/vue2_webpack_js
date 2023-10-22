@@ -3,7 +3,7 @@ package com.example.demo.subdemo1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("user")
+@Service("userService")
 public class UserService {
     @Autowired
     private UserPojo userPojo;

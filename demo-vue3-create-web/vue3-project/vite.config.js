@@ -4,9 +4,11 @@ import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import ElementPlus from 'unplugin-element-plus/vite';
 import requireTransform from 'vite-plugin-require-transform';
+console.log('vite服务启动');
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
+  console.log('vite服务启动');
   return {
     plugins: [
       vue(),

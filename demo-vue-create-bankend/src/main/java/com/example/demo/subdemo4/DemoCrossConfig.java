@@ -7,10 +7,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class DemoCrossConfig implements WebMvcConfigurer {
-    static final String ORIGINS[] = new String[] { "GET", "POST", "PUT", "DELETE" };
+    static final String ORIGINS[] = new String[]{"GET", "POST", "PUT", "DELETE"};
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/rest/demo/").allowedOrigins("http://localhost:8080").allowCredentials(true).allowedMethods(ORIGINS).maxAge(3600);
+        registry.addMapping("/rest/**")
+                .allowedOrigins("*")
+                .allowedMethods("GET", "POST")
+                .maxAge(3600);
+        // 可以继续添加其他URL规则:
+        // registry.addMapping("/rest/v2/**")...    }
     }
 }
