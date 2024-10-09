@@ -24,6 +24,7 @@ import pullDownRefresh from '@/components/extend-problem/pull-down-refresh'
 import arthmeticComponent from '@/components/extend-problem/arthmetic'
 import pullDownComponent from '@/components/extend-problem/pull-down'
 import recursionComponent from '@/components/extend-problem/recursion.vue'
+import threeJsComponent from '@/components/three-js-test';
 export default {
   Index: Index,
   Parent: Parent,
@@ -50,5 +51,6 @@ export default {
   pullDownRefresh: pullDownRefresh,
   arthmeticComponent: arthmeticComponent,
   pullDownComponent: pullDownComponent,
-  recursionComponent: recursionComponent
+  recursionComponent: recursionComponent,
+  threeJsComponent:threeJsComponent
 }

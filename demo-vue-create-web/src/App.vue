@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  name: 'App'
-}
+  name: "App",
+};
 </script>
 
 <style>
@@ -19,5 +19,6 @@ body,
   padding: 0;
 
   height: 100%;
+  /* overflow: hidden; */
 }
 </style>

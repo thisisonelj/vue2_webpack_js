@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f7dbf7fe-b944-47ed-b317-ab058d867a47" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/subdemo1/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/subdemo1/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/subdemo4/DemoCrossConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/subdemo4/DemoCrossConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/subdemo1/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/subdemo1/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/subdemo4/DemoCrossConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/subdemo4/DemoCrossConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../demo-vue3-create-web/vue3-project/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../demo-vue3-create-web/vue3-project/vite.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -217,7 +212,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/毕业后第一份本专业工作/久其资料/acctcore-cashier-backend&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/内网工具包/LoginDemo&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -285,7 +280,22 @@
       <workItem from="1687667089965" duration="1630000" />
       <workItem from="1687678179494" duration="963000" />
       <workItem from="1690957916767" duration="1467000" />
+      <workItem from="1698634251047" duration="1242000" />
+      <workItem from="1699336147207" duration="818000" />
+      <workItem from="1700393940293" duration="2781000" />
+      <workItem from="1701493783942" duration="1100000" />
+      <workItem from="1712802659521" duration="3237000" />
+      <workItem from="1714964855073" duration="78000" />
     </task>
+    <task id="LOCAL-00001" summary="提交vue3错误显示信息">
+      <option name="closed" value="true" />
+      <created>1697938208802</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1697938208802</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -370,6 +380,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="提交vue3错误显示信息" />
+    <option name="LAST_COMMIT_MESSAGE" value="提交vue3错误显示信息" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
