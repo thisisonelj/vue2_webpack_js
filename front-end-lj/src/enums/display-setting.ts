@@ -1,10 +1,10 @@
 export enum SETTING {
-  FORM,
-  BUTTON,
-  TABLE,
-  TREE,
-  ICON,
-  MODAL,
-  TIPS,
-  SETTING,
+  FORM = 'FORM',
+  BUTTON = 'BUTTON',
+  TABLE = 'TABLE',
+  TREE = 'TREE',
+  ICON = 'ICON',
+  MODAL = 'MODAL',
+  TIPS = 'TIPS',
+  SETTING = 'SETTING',
 }

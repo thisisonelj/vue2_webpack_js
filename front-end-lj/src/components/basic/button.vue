@@ -1,12 +1,14 @@
 <template>
-  <div class="button-container">
-    <el-button
-      :size="originDataInfo.size"
-      :type="originDataInfo.type"
-      :plain="originDataInfo.plain"
-      class="default-info"
-    ></el-button>
-  </div>
+  <el-button
+    :size="originDataInfo.size"
+    :type="originDataInfo.type"
+    :plain="originDataInfo.plain"
+    class="button-info"
+    :color="originDataInfo.color"
+    @click="displayInfo"
+  >
+    {{ originDataInfo.content }}
+  </el-button>
 </template>
 <script setup lang="ts">
 import { buttonSize, buttonType } from '@/enums/button'
@@ -25,11 +27,17 @@ interface buttonTemplate {
   color?: String
   [prop: string]: any
 }
-const originDataInfo = defineProps<buttonTemplate>()
+const props = defineProps<{
+  originDataInfo: buttonTemplate
+}>()
+function displayInfo() {
+  console.log('这是按钮组件')
+}
 </script>
 <style lang="scss" scoped>
-.button-container {
-  .default-info {
-  }
+.button-info {
+  padding: 20px;
+  font-weight: 700;
+  font-size: 24px;
 }
 </style>
