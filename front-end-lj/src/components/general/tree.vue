@@ -1,12 +1,38 @@
 <template>
-  <div class="tree-container">{{ content }}</div>
+  <div class="tree-container">
+    <el-tree
+      class="tree"
+      :data="treeData"
+      :props="defaultProps"
+      @node-click="handleNodeClick"
+      ref="treeRef"
+      default-expand-all
+      node-key="id"
+      highlight-current
+      empty-text="暂无数据"
+      :show-checkbox="false"
+    />
+  </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
-let content = ref('树形区域')
+import { ref, reactive } from 'vue'
+type Tree = {
+  label: string
+  children?: Tree[]
+}
+const props = defineProps<{
+  treeData: Array<Tree>
+}>()
+const defaultProps = ref({
+  children: 'children',
+  label: 'label',
+})
+function handleNodeClick() {}
 </script>
 <style lang="scss" scoped>
 .tree-container {
   padding: 10px;
+  .tree {
+  }
 }
 </style>
