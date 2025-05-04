@@ -19,15 +19,21 @@ import { ref, reactive } from 'vue'
 type Tree = {
   label: string
   children?: Tree[]
+  [props: string]: any
 }
 const props = defineProps<{
   treeData: Array<Tree>
+}>()
+const emits = defineEmits<{
+  (e: 'refresh-table', value: Tree): any
 }>()
 const defaultProps = ref({
   children: 'children',
   label: 'label',
 })
-function handleNodeClick() {}
+function handleNodeClick(node: Tree) {
+  emits('refresh-table', node)
+}
 </script>
 <style lang="scss" scoped>
 .tree-container {

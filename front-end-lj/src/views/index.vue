@@ -2,15 +2,19 @@
   <div class="container">
     <common-header :display-types="displayGroups"></common-header>
     <div class="center">
-      <left-tree class="left-tree" :tree-data="treeData"></left-tree>
+      <left-tree class="left-tree" :tree-data="treeData" @refresh-table="refreshTable"></left-tree>
       <el-divider direction="vertical" class="divider-info" />
       <right-table class="right-table" :table-data="tableData"></right-table>
     </div>
-    <common-footer></common-footer>
+    <common-footer
+      @pagesize-change="pageSizeChange"
+      @currentpage-change="currentpageChange"
+      ref="pagation"
+    ></common-footer>
   </div>
 </template>
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, useTemplateRef, onMounted } from 'vue'
 import commonHeader from '@/components/basic/header/index.vue'
 import { SETTING } from '@/enums/display-setting'
 import { buttonSize, buttonType } from '@/enums/button'
@@ -19,6 +23,8 @@ import leftTree from '@/components/general/tree.vue'
 import rightTable from '@/components/general/table.vue'
 import { queryTreeData, queryTableData } from '@/utils/http'
 import { storageHanderClass } from '@/utils/storage'
+import { pagationFunClass } from '@/utils/pagation'
+import { nextTick } from 'vue'
 let displayGroups = reactive([
   {
     id: SETTING.BUTTON,
@@ -65,6 +71,8 @@ let displayGroups = reactive([
 ])
 let treeData = ref<any[]>([])
 let tableData = ref<any[]>([])
+let tableDataCache = ref<any[]>([])
+const pagationReF: any = useTemplateRef('pagation')
 //获取树形数据
 function queryTreeDataInfo() {
   let treeDataStorage = new storageHanderClass().getStorageInfo('treedata')
@@ -88,8 +96,11 @@ function queryTreeDataInfo() {
 //获取表格数据
 function queryTableDataInfo() {
   let tableDataStorage = new storageHanderClass().getStorageInfo('tabledata')
+  tableDataCache.value = tableDataStorage
   if (tableDataStorage) {
-    tableData.value = tableDataStorage
+    let pagationInstance = new pagationFunClass(tableDataCache.value).initPage()
+    tableData.value = pagationInstance.data
+    pagationReF.value.pagetionData.total = pagationInstance.total
     return
   }
   return new Promise((resolve, reject) => {
@@ -98,6 +109,9 @@ function queryTableDataInfo() {
         tableData.value = res.data
         if (tableData.value) {
           new storageHanderClass().setStorageInfo('tabledata', JSON.stringify(tableData.value))
+          let pagationInstance = new pagationFunClass(tableDataCache.value).initPage()
+          tableData.value = pagationInstance.data
+          pagationReF.value.pagetionData.total = pagationInstance.total
         }
       })
       .catch((error: any) => {
@@ -108,7 +122,33 @@ function queryTableDataInfo() {
 function initCurrentPage() {
   Promise.all([queryTreeDataInfo(), queryTableDataInfo()])
 }
-initCurrentPage()
+function queryCurrentTableData(id: String) {
+  tableData.value = tableDataCache.value.filter((e) => {
+    return e.goodId == id
+  })
+}
+function refreshTable(data: any) {
+  queryCurrentTableData(data.id)
+}
+function pageSizeChange(data: any) {
+  let pagationInstance = new pagationFunClass(tableDataCache.value).sizeChange(
+    data.pageSize,
+    data.current,
+  )
+  tableData.value = pagationInstance.data
+  pagationReF.value.pagetionData.total = pagationInstance.total
+}
+function currentpageChange(data: any) {
+  let pagationInstance = new pagationFunClass(tableDataCache.value).currentChange(
+    data.current,
+    data.pageSize,
+  )
+  tableData.value = pagationInstance.data
+  pagationReF.value.pagetionData.total = pagationInstance.total
+}
+onMounted(() => {
+  initCurrentPage()
+})
 </script>
 <style lang="scss" scoped>
 .container {

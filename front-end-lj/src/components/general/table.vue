@@ -4,8 +4,8 @@
       :data="tableData"
       style="width: 100%"
       highlight-current-row
-      :current-row-key="'goodId'"
-      :row-key="'goodId'"
+      :current-row-key="'index'"
+      :row-key="'index'"
       :empty-text="'暂无数据'"
       border
       class="table"
