@@ -24,7 +24,7 @@ import rightTable from '@/components/general/table.vue'
 import { queryTreeData, queryTableData } from '@/utils/http'
 import { storageHanderClass } from '@/utils/storage'
 import { pagationFunClass } from '@/utils/pagation'
-import { nextTick } from 'vue'
+import { btnToLoading } from '@/hooks/test'
 let displayGroups = reactive([
   {
     id: SETTING.BUTTON,
@@ -73,6 +73,11 @@ let treeData = ref<any[]>([])
 let tableData = ref<any[]>([])
 let tableDataCache = ref<any[]>([])
 const pagationReF: any = useTemplateRef('pagation')
+const { loading, changeLoad } = btnToLoading(tableData)
+changeLoad()
+displayGroups.forEach((e: any) => {
+  e.loading = loading.value
+})
 //获取树形数据
 function queryTreeDataInfo() {
   let treeDataStorage = new storageHanderClass().getStorageInfo('treedata')

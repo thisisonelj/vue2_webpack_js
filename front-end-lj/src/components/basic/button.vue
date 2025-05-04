@@ -6,6 +6,7 @@
     class="button-info"
     :color="originDataInfo.color"
     @click="displayInfo"
+    :loading="originDataInfo.loading"
   >
     {{ originDataInfo.content }}
   </el-button>
