@@ -9,7 +9,7 @@
     :loading="originDataInfo.loading"
     v-btnauth="originDataInfo.code"
   >
-    {{ originDataInfo.content }}
+    {{ $t('btnText') }}
   </el-button>
 </template>
 <script setup lang="ts">

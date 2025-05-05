@@ -44,8 +44,12 @@
       <el-table-column :label="tableLabelData?.btnGroupsName" show-overflow-tooltip align="center">
         <template #default="scope">
           <div class="hander-table-info">
-            <el-button type="primary" size="small" @click="editInfo(scope.row)">编辑</el-button>
-            <el-button type="danger" size="small" @click="deleteInfo(scope.row)">删除</el-button>
+            <el-button type="primary" size="small" @click="editInfo(scope.row)">{{
+              $t('editText')
+            }}</el-button>
+            <el-button type="danger" size="small" @click="deleteInfo(scope.row)">{{
+              $t('deleteText')
+            }}</el-button>
           </div>
         </template>
       </el-table-column>
