@@ -19,8 +19,6 @@ export class pagationFunClass implements pagationInfo {
   recordList: any[]
   currentList: any[]
   pageComputedInfo(): { total: Number; data: any[] } {
-    console.log(this.current)
-    console.log(this.size)
     this.currentList = this.recordList.slice(
       (this.current - 1) * this.size,
       this.current * this.size,

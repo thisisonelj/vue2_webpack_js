@@ -50,10 +50,17 @@
         </template>
       </el-table-column>
     </el-table>
+    <modal-info
+      :form-config-list="formConfigList"
+      @cancel-modal="cancelModal"
+      @confirm-modal="confirmModal"
+      ref="modalFormRef"
+    ></modal-info>
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, useTemplateRef, onMounted } from 'vue'
+import modalInfo from '@/components/basic/modal.vue'
 interface tableLabelData {
   indexName: String
   googIdName: String
@@ -81,8 +88,57 @@ const tableLabelData = ref<tableLabelData>({
   createTimeName: '商品创建时间',
   btnGroupsName: '操作',
 })
-function editInfo(row: tableTemplateData) {}
-function deleteInfo(row: tableTemplateData) {}
+const formConfigList = ref({
+  modalStatus: false,
+  modalTitle: '编辑信息',
+  modalForm: [
+    {
+      key: 'goodId',
+      label: '商品标识',
+      width: 80,
+    },
+    {
+      key: 'goodName',
+      label: '商品名称',
+      width: 80,
+    },
+    {
+      key: 'price',
+      label: '商品价格',
+      width: 80,
+    },
+    {
+      key: 'createTime',
+      label: '创建时间',
+      width: 80,
+    },
+  ],
+})
+const modalFormInfo: any = useTemplateRef('modalFormRef')
+const emits = defineEmits<{
+  (e: 'edit-change', value: tableTemplateData): any
+  (e: 'delete-change', value: tableTemplateData): any
+}>()
+function cancelModal() {
+  formConfigList.value.modalStatus = false
+}
+
+function confirmModal() {
+  emits('edit-change', modalFormInfo.value.formData)
+  formConfigList.value.modalStatus = false
+}
+function editInfo(row: tableTemplateData) {
+  console.log(row)
+  modalFormInfo.value.formData.goodId = row.goodId
+  modalFormInfo.value.formData.goodName = row.goodName
+  modalFormInfo.value.formData.price = row.price
+  modalFormInfo.value.formData.createTime = row.createTime
+  formConfigList.value.modalStatus = true
+}
+function deleteInfo(row: tableTemplateData) {
+  console.log(row)
+  emits('delete-change', row)
+}
 </script>
 <style lang="scss" scoped>
 .table-container {

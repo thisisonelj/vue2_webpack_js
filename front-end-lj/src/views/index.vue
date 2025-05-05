@@ -4,7 +4,12 @@
     <div class="center">
       <left-tree class="left-tree" :tree-data="treeData" @refresh-table="refreshTable"></left-tree>
       <el-divider direction="vertical" class="divider-info" />
-      <right-table class="right-table" :table-data="tableData"></right-table>
+      <right-table
+        class="right-table"
+        :table-data="tableData"
+        @edit-change="editChange"
+        @delete-change="deleteChange"
+      ></right-table>
     </div>
     <common-footer
       @pagesize-change="pageSizeChange"
@@ -150,6 +155,19 @@ function currentpageChange(data: any) {
   )
   tableData.value = pagationInstance.data
   pagationReF.value.pagetionData.total = pagationInstance.total
+}
+function editChange(data: any) {
+  tableData.value.forEach((item: any) => {
+    if (item.goodId == data.goodId) {
+      item.goodId = data.goodId
+      item.goodName = data.goodName
+      item.price = data.price
+      item.createTime = data.createTime
+    }
+  })
+}
+function deleteChange(data: any) {
+  tableData.value.splice(data.index, 1)
 }
 onMounted(() => {
   initCurrentPage()
