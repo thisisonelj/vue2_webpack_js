@@ -30,6 +30,11 @@ import { queryTreeData, queryTableData } from '@/utils/http'
 import { storageHanderClass } from '@/utils/storage'
 import { pagationFunClass } from '@/utils/pagation'
 import { btnToLoading } from '@/hooks/test'
+interface btnPowerTemplate {
+  code: String
+  label: String
+  [props: string]: any
+}
 let displayGroups = reactive([
   {
     id: SETTING.BUTTON,
@@ -38,6 +43,7 @@ let displayGroups = reactive([
     plain: false,
     text: false,
     content: '按钮',
+    code: '001',
   },
   {
     id: SETTING.BUTTON,
@@ -47,6 +53,7 @@ let displayGroups = reactive([
     text: true,
     content: '按钮1',
     disable: true,
+    code: '002',
   },
   {
     id: SETTING.BUTTON,
@@ -55,6 +62,7 @@ let displayGroups = reactive([
     plain: false,
     text: false,
     content: '按钮2',
+    code: '003',
   },
   {
     id: SETTING.BUTTON,
@@ -63,6 +71,7 @@ let displayGroups = reactive([
     plain: false,
     text: true,
     content: '按钮3',
+    code: '004',
   },
   {
     id: SETTING.BUTTON,
@@ -72,6 +81,29 @@ let displayGroups = reactive([
     text: true,
     content: '按钮4',
     disable: true,
+    code: '006',
+  },
+])
+const btnPowerGroups = reactive<Array<btnPowerTemplate>>([
+  {
+    code: '001',
+    label: '第一个',
+  },
+  {
+    code: '002',
+    label: '第二个',
+  },
+  {
+    code: '003',
+    label: '第三个',
+  },
+  {
+    code: '004',
+    label: '第四个',
+  },
+  {
+    code: '005',
+    label: '第五个',
   },
 ])
 let treeData = ref<any[]>([])
@@ -169,8 +201,14 @@ function editChange(data: any) {
 function deleteChange(data: any) {
   tableData.value.splice(data.index, 1)
 }
+//存储按钮权限
+function initBtnPower() {
+  const storageHander = new storageHanderClass()
+  storageHander.setStorageInfo('btn-permission', JSON.stringify(btnPowerGroups))
+}
 onMounted(() => {
   initCurrentPage()
+  initBtnPower()
 })
 </script>
 <style lang="scss" scoped>

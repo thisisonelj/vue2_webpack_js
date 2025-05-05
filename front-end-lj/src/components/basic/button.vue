@@ -7,6 +7,7 @@
     :color="originDataInfo.color"
     @click="displayInfo"
     :loading="originDataInfo.loading"
+    v-btnauth="originDataInfo.code"
   >
     {{ originDataInfo.content }}
   </el-button>
