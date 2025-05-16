@@ -1,30 +1,31 @@
-import Index from '@/components/router-groups'
-import Parent from '@/components/router-groups/parent'
-import Son from '@/components/router-groups/son'
-import grandSon from '@/components/router-groups/grand-son'
-import parentBrother from '@/components/router-groups/parent-brother'
-import brotherSon from '@/components/router-groups/brother-son'
-import module from '../vuex/vuex-module.vue'
-import eventBus from '@/components/event-bus'
-import aliveModule from '@/components/keep-alive'
-import echartsTable from '@/components/echarts-table'
-import webSockets from '@/components/web-sockets'
-import renderTree from '@/components/render-tree'
-import css3Components from '@/components/css3-components'
-import css3Transition from '@/components/css3-components/css3-transition'
-import css3Animation from '@/components/css3-components/css3-animation'
-import css3Flex from '@/components/css3-components/css3-flex'
-import css3FlexAuto from '@/components/css3-components/css3-flex-auto'
-import css3FlexLastRow from '@/components/css3-components/css3-flex-last-row'
-import extendComponent from '@/components/extend-problem'
-import carouselComponent from '@/components/extend-problem/carousel'
-import debounceComponent from '@/components/extend-problem/debounce'
-import browserComponent from '@/components/extend-problem/browser-compatible'
-import pullDownRefresh from '@/components/extend-problem/pull-down-refresh'
-import arthmeticComponent from '@/components/extend-problem/arthmetic'
-import pullDownComponent from '@/components/extend-problem/pull-down'
-import recursionComponent from '@/components/extend-problem/recursion.vue'
-import threeJsComponent from '@/components/three-js-test';
+import Index from "@/components/router-groups";
+import Parent from "@/components/router-groups/parent";
+import Son from "@/components/router-groups/son";
+import grandSon from "@/components/router-groups/grand-son";
+import parentBrother from "@/components/router-groups/parent-brother";
+import brotherSon from "@/components/router-groups/brother-son";
+import module from "../vuex/vuex-module.vue";
+import eventBus from "@/components/event-bus";
+import aliveModule from "@/components/keep-alive";
+import echartsTable from "@/components/echarts-table";
+import webSockets from "@/components/web-sockets";
+import renderTree from "@/components/render-tree";
+import css3Components from "@/components/css3-components";
+import css3Transition from "@/components/css3-components/css3-transition";
+import css3Animation from "@/components/css3-components/css3-animation";
+import css3Flex from "@/components/css3-components/css3-flex";
+import css3FlexAuto from "@/components/css3-components/css3-flex-auto";
+import css3FlexLastRow from "@/components/css3-components/css3-flex-last-row";
+import extendComponent from "@/components/extend-problem";
+import carouselComponent from "@/components/extend-problem/carousel";
+import debounceComponent from "@/components/extend-problem/debounce";
+import browserComponent from "@/components/extend-problem/browser-compatible";
+import pullDownRefresh from "@/components/extend-problem/pull-down-refresh";
+import arthmeticComponent from "@/components/extend-problem/arthmetic";
+import pullDownComponent from "@/components/extend-problem/pull-down";
+import recursionComponent from "@/components/extend-problem/recursion.vue";
+import threeJsComponent from "@/components/three-js-test";
+import testElementUi from "@/components/element-ui-test/index.vue";
 export default {
   Index: Index,
   Parent: Parent,
@@ -52,5 +53,6 @@ export default {
   arthmeticComponent: arthmeticComponent,
   pullDownComponent: pullDownComponent,
   recursionComponent: recursionComponent,
-  threeJsComponent:threeJsComponent
-}
+  threeJsComponent: threeJsComponent,
+  testElementUi: testElementUi,
+};

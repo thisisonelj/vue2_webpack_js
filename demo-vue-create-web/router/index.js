@@ -1,141 +1,146 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import displayPage from '@/components/display-page'
-import vuexDemo from './router-utils'// 练习vuex相关的组件
-import account from './account-router'
-Vue.use(Router)
+import Vue from "vue";
+import Router from "vue-router";
+import HelloWorld from "@/components/HelloWorld";
+import displayPage from "@/components/display-page";
+import vuexDemo from "./router-utils"; // 练习vuex相关的组件
+import account from "./account-router";
+Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: '/three',
-      name: 'threeJS',
-      component: vuexDemo.threeJsComponent
+      path: "/three",
+      name: "threeJS",
+      component: vuexDemo.threeJsComponent,
     },
     {
-      path: '/HelloWorld',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: "/HelloWorld",
+      name: "HelloWorld",
+      component: HelloWorld,
     },
     {
-      path: '/',
-      name: 'displayPage',
-      component: displayPage
+      path: "/",
+      name: "displayPage",
+      component: displayPage,
     },
     {
-      path: '/vuex/index',
-      name: 'index',
-      component: vuexDemo.Index
+      path: "/vuex/index",
+      name: "index",
+      component: vuexDemo.Index,
     },
     {
-      path: '/vuex/module',
-      name: 'module',
-      component: vuexDemo.module
+      path: "/vuex/module",
+      name: "module",
+      component: vuexDemo.module,
     },
     {
-      path: '/eventbus',
-      name: 'eventBus',
-      component: vuexDemo.eventBus
+      path: "/eventbus",
+      name: "eventBus",
+      component: vuexDemo.eventBus,
     },
     {
-      path: '/alive',
-      name: 'aliveModule',
-      component: vuexDemo.aliveModule
+      path: "/alive",
+      name: "aliveModule",
+      component: vuexDemo.aliveModule,
     },
     {
-      path: '/echarts',
-      name: 'echartsTable',
-      component: vuexDemo.echartsTable
+      path: "/echarts",
+      name: "echartsTable",
+      component: vuexDemo.echartsTable,
     },
     {
-      path: '/websockets',
-      name: 'webSockets',
-      component: vuexDemo.webSockets
+      path: "/websockets",
+      name: "webSockets",
+      component: vuexDemo.webSockets,
     },
     {
-      path: '/render',
-      name: 'renderTree',
-      component: vuexDemo.renderTree
+      path: "/render",
+      name: "renderTree",
+      component: vuexDemo.renderTree,
     },
     {
-      path: '/css3',
-      name: 'css3Components',
-      component: vuexDemo.css3Components
+      path: "/css3",
+      name: "css3Components",
+      component: vuexDemo.css3Components,
     },
     {
-      path: '/transition',
-      name: 'css3Transition',
-      component: vuexDemo.css3Transition
+      path: "/transition",
+      name: "css3Transition",
+      component: vuexDemo.css3Transition,
     },
     {
-      path: '/animation',
-      name: 'css3Animation',
-      component: vuexDemo.css3Animation
+      path: "/animation",
+      name: "css3Animation",
+      component: vuexDemo.css3Animation,
     },
     {
-      path: '/flex',
-      name: 'css3Flex',
-      component: vuexDemo.css3Flex
+      path: "/flex",
+      name: "css3Flex",
+      component: vuexDemo.css3Flex,
     },
     {
-      path: '/flexauto',
-      name: 'css3FlexAuto',
-      component: vuexDemo.css3FlexAuto
+      path: "/flexauto",
+      name: "css3FlexAuto",
+      component: vuexDemo.css3FlexAuto,
     },
     {
-      path: '/flexlastrow',
-      name: 'css3FlexLastRow',
-      component: vuexDemo.css3FlexLastRow
+      path: "/flexlastrow",
+      name: "css3FlexLastRow",
+      component: vuexDemo.css3FlexLastRow,
     },
     {
-      path: '/extend',
-      name: 'extendComponent',
-      component: vuexDemo.extendComponent
+      path: "/extend",
+      name: "extendComponent",
+      component: vuexDemo.extendComponent,
     },
     {
-      path: '/carousel',
-      name: 'carouselComponent',
-      component: vuexDemo.carouselComponent
+      path: "/carousel",
+      name: "carouselComponent",
+      component: vuexDemo.carouselComponent,
     },
     {
-      path: '/debounce',
-      name: 'debounceComponent',
-      component: vuexDemo.debounceComponent
+      path: "/debounce",
+      name: "debounceComponent",
+      component: vuexDemo.debounceComponent,
     },
     {
-      path: '/browser',
-      name: 'browserComponent',
-      component: vuexDemo.browserComponent
+      path: "/browser",
+      name: "browserComponent",
+      component: vuexDemo.browserComponent,
     },
     {
-      path: '/pulldown',
-      name: 'pullDownRefresh',
-      component: vuexDemo.pullDownRefresh
+      path: "/pulldown",
+      name: "pullDownRefresh",
+      component: vuexDemo.pullDownRefresh,
     },
     {
-      path: '/arthmetic',
-      name: 'arthmeticComponent',
-      component: vuexDemo.arthmeticComponent
+      path: "/arthmetic",
+      name: "arthmeticComponent",
+      component: vuexDemo.arthmeticComponent,
     },
     {
-      path: '/recursion',
-      name: 'recursionComponent',
-      component: vuexDemo.recursionComponent
+      path: "/recursion",
+      name: "recursionComponent",
+      component: vuexDemo.recursionComponent,
     },
     {
-      path: '/down',
-      name: 'downComponent',
-      component: vuexDemo.pullDownComponent
+      path: "/down",
+      name: "downComponent",
+      component: vuexDemo.pullDownComponent,
     },
     {
-      path: '/login',
-      name: 'login',
-      component: account.accountEntry
+      path: "/login",
+      name: "login",
+      component: account.accountEntry,
     },
     {
-      path: '/main',
-      name: 'main',
-      component: account.accountMain
-    }
-  ]
-})
+      path: "/main",
+      name: "main",
+      component: account.accountMain,
+    },
+    {
+      path: "/testui",
+      name: "testElementUi",
+      component: vuexDemo.testElementUi,
+    },
+  ],
+});
