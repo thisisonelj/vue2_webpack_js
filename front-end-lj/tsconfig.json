@@ -24,7 +24,8 @@
     "typeRoots": [
       "./node_modules/@types/",
       "./types",
-      "./node_modules"
+      "./node_modules",
+      "./src/typings.d.ts",
     ],
     "noImplicitAny": false,
     "skipLibCheck": true,
@@ -48,10 +49,7 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "types/**/*.d.ts",
-    "types/**/*.ts",
-    "utils/**/*.ts",
-    "vite.config.ts"
+    "vite.config.ts",
   ],
   "exclude": [
     "node_modules",
