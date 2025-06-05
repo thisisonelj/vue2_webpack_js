@@ -35,10 +35,7 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
-  },
-  created() {
-    console.log('测试分支来源切换')
-  },
+  }
 }
 </script>
 
