@@ -92,6 +92,9 @@
         </template>
       </el-table-column>
     </el-table>
+    <div>
+      <el-button @click="navigateWhatsAppInfo" type="primary"></el-button>
+    </div>
   </div>
 </template>
 
@@ -281,6 +284,20 @@ export default {
     };
   },
   methods: {
+    navigateWhatsAppInfo(){
+      // 请替换为你的WhatsApp API密钥和目标电话号码
+      const apiKey = 'YOUR_API_KEY';
+      const phoneNumber = '15535409713';
+
+     // 请替换为你想发送的消息内容
+     const message = 'Hello, World!';
+
+     // 构建WhatsApp API的URL
+     const apiUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+
+    // 打开WhatsApp并发送消息
+     window.open(apiUrl);
+    },
     columnWidth(column, index) {
       let width = 100;
       if (column.label.length) {
