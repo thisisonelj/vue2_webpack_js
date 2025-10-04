@@ -80,3 +80,21 @@ export const testInterceptorValid = (data: Object) => {
     data,
   });
 };
+
+// 测试事件监听
+export const testEmitterListenerInfo = (data: Object) => {
+  return postNestServiceApi({
+    url: '/emitter/test',
+    methods: 'post',
+    data,
+  });
+};
+
+// 测试调用deepseekApi服务
+export const testDeepSeekApiInfo = (data: Object) => {
+  return postNestServiceApi({
+    url: '/http/test',
+    methods: 'post',
+    data,
+  });
+};

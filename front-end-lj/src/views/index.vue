@@ -31,6 +31,8 @@
     testExceptionFilterValid,
     testGuardPowerValid,
     testInterceptorValid,
+    testEmitterListenerInfo,
+    testDeepSeekApiInfo,
   } from '@/api/goodsApi';
   interface btnPowerTemplate {
     code: String;
@@ -204,7 +206,7 @@
   }
   // 测试nest服务api接口
   const testNestApiInfo = async () => {
-    const res = await testInterceptorValid({ user: { roles: ['admin'] } });
+    const res = await testDeepSeekApiInfo({});
     console.log(res);
   };
   onMounted(() => {
