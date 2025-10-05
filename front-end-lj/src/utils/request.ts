@@ -61,3 +61,22 @@ export const postNestServiceQueryApi = (requestParams: requestParams): Promise<O
       });
   });
 };
+
+export const postNestServiceUploadApi = (requestParams: requestParams): Promise<Object> => {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: requestParams.methods,
+      url: requestParams.url,
+      data: requestParams.data,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};

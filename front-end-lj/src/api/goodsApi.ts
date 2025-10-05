@@ -1,5 +1,5 @@
 //商品后台api 模拟数据库CRUD
-import { getNestServiceApi, postNestServiceApi, requestParams, postNestServiceQueryApi } from '@/utils/request';
+import { getNestServiceApi, postNestServiceApi, requestParams, postNestServiceQueryApi, postNestServiceUploadApi } from '@/utils/request';
 import { baseUrl } from '@/constant/index';
 
 // 查询单条记录
@@ -94,6 +94,15 @@ export const testEmitterListenerInfo = (data: Object) => {
 export const testDeepSeekApiInfo = (data: Object) => {
   return postNestServiceApi({
     url: '/http/test',
+    methods: 'post',
+    data,
+  });
+};
+
+// 测试调用文件上传服务
+export const testUploadApiInfo = (data: Object) => {
+  return postNestServiceUploadApi({
+    url: '/upload/file',
     methods: 'post',
     data,
   });
