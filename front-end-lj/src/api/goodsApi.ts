@@ -107,3 +107,12 @@ export const testUploadApiInfo = (data: Object) => {
     data,
   });
 };
+
+// 测试nest微服务
+export const testMicroServiceInfo = ({ url = '/microservice/test', methods = 'get', data = {} }) => {
+  return getNestServiceApi({
+    url,
+    methods,
+    data,
+  });
+};

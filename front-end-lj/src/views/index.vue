@@ -33,6 +33,7 @@
     testInterceptorValid,
     testEmitterListenerInfo,
     testDeepSeekApiInfo,
+    testMicroServiceInfo,
   } from '@/api/goodsApi';
   interface btnPowerTemplate {
     code: String;
@@ -206,7 +207,7 @@
   }
   // 测试nest服务api接口
   const testNestApiInfo = async () => {
-    const res = await testDeepSeekApiInfo({});
+    const res = await testMicroServiceInfo({ data: { num: '123,456,789' } });
     console.log(res);
   };
   onMounted(() => {
