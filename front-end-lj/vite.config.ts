@@ -30,5 +30,6 @@ export default ({ command, mode }) => {
         // },
       },
     },
+    publicDir: '/src',
   });
 };
