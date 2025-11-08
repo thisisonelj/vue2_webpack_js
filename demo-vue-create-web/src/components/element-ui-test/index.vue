@@ -92,6 +92,12 @@
         </template>
       </el-table-column>
     </el-table>
+    <div>
+      <el-button @click="navigateWhatsAppInfo" type="primary"></el-button>
+    </div>
+     <div>
+      <el-button @click="navigateEmail" type="primary"></el-button>
+    </div>
   </div>
 </template>
 
@@ -281,6 +287,34 @@ export default {
     };
   },
   methods: {
+    navigateWhatsAppInfo(){
+      // 请替换为你的WhatsApp API密钥和目标电话号码
+      const apiKey = 'YOUR_API_KEY';
+      const phoneNumber = '15535409713';
+
+     // 请替换为你想发送的消息内容
+     const message = 'Hello, World!';
+
+     // 构建WhatsApp API的URL
+     const apiUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+
+    // 打开WhatsApp并发送消息
+     window.open(apiUrl);
+    },
+    navigateEmail(){
+      const data='15535409713m@sina.cn'
+      const emailSubjectName='测试跳转邮箱'
+      const emailInnerContent='这是邮箱内容'
+  const emailNumber = encodeURIComponent(data)
+  // 构造mailto链接
+  const mailtoLink = `mailto:${emailNumber}?subject=${emailSubjectName}&body=${emailInnerContent}`
+  // 创建一个a标签并设置其href属性为mailto链接
+  const a = document.createElement('a')
+  a.href = mailtoLink
+  // 触发a标签的点击事件，从而打开用户的默认邮件客户端
+  a.click()
+  a.remove()
+    },
     columnWidth(column, index) {
       let width = 100;
       if (column.label.length) {

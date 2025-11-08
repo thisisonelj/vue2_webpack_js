@@ -8,7 +8,8 @@
     "build:single": "vue-cli-service build --target lib",
     "lint": "vue-cli-service lint",
     "build:dev": "vue-cli-service build --mode dev  --progress --config config/dev.config.js",
-    "build:prod": "vue-cli-service build --mode prod"
+    "build:prod": "vue-cli-service build --mode prod",
+    "start":"node src/test-whatapp.js"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
