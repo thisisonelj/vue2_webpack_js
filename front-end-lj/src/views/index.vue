@@ -211,6 +211,7 @@
     console.log(res);
   };
   onMounted(() => {
+    // 测试jenkins Pr合并通知
     // initCurrentPage();
     // initBtnPower();
     testNestApiInfo();
